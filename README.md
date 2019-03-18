@@ -1,6 +1,7 @@
 # vehicleKeyborad
 普通车牌和新能源车牌
 
+
 ![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/ch.jpg)
 
 ![EN键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/en.jpg)
@@ -33,5 +34,7 @@
 
 # 返回的事件和参数
 + `init` Function 键盘创建和初始化
++ `getVehicleValue` function 返回输入的车牌
 + `saveValue` Array 返回输入的车牌
 + `showDoc` Function 显示使用方法
+
