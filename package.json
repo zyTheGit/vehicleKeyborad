@@ -1,0 +1,17 @@
+{
+  "name": "keyborad",
+  "version": "1.0.0",
+  "description": "个键盘",
+  "main": "keyborad.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zy",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1"
+  }
+}

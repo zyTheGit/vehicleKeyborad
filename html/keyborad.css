@@ -1,0 +1,88 @@
+@charset 'utf-8';
+
+.keyboradZy {
+  max-width: 785px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transform: -webkit-translate(-50%, 0);
+}
+
+.keyboradZy .ch,
+.keyboradZy .en {
+  padding: 2px 3px;
+  box-sizing: border-box;
+  background-color: #ddd;
+  border-radius: 3px;
+}
+
+.keyboradZy .ch>div,
+.keyboradZy .en>div,
+.keyboradInp {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.keyboradZy .ch>div>span,
+.keyboradZy .en>div>span {
+  text-align: center;
+  flex: auto;
+  -webkit-flex: auto;
+  padding: 10px 5px;
+  margin: 5px 3px;
+  transition: .3s;
+  box-shadow: 1px 1px 1px 1px #666;
+  border: 1px solid #ddd;
+}
+
+.keyboradZy .ch>div>span,
+.keyboradZy .en>div>span,
+.keyboradInp span {
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+  user-select: none;
+}
+
+.keyboradZy .ch>div>span:active,
+.keyboradZy .en>div>span:active {
+  background: #f6c;
+  box-shadow: 0 0 0 0 #fff;
+  color: #fff;
+  border-radius: 5px;
+}
+ .keyboradInp>span {
+  display: block;
+  width: 50px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  margin: 0 2px;
+  border: 2px solid #cdc496;
+}
+
+.keyboradInp .keyborad_interval {
+  width: 20px;
+  box-shadow: none;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.keyboradInp>span.keyborad_especial>font {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAvCAMAAABXLiNqAAAAe1BMVEX////6+vr4+Pj8/PzNzc3KysrAwMD29vbr6+vm5ubS0tLY2Njx8fG8vLzv7+/U1NSlpaXf39+1tbXCwsKysrLa2tq5ubmurq6oqKjo6OjPz8/z8/OdnZ2QkJDh4eHHx8eqqqqhoaHc3NzExMSYmJiWlpbj4+OJiYmIiIg8n+V6AAABhklEQVQ4y+2Ux47dIBRA6b2Du/Nsv5b8/xfG2FlEWcx4k0WiORIS5QC69yLAF/8LnF/z+oAueeGi1/efe3CnDxOE+EMNh+/fDn504EP8Qsk8U7po8Clrfz2OK8zztURTCsEX/wD4t0eJYH2s5/Sf3qTgLsjF7/0kEdDvuhVTDzUhShFqquUYe7ElhpQFAGOSCYzxtu57hnl8smwLs6J6/GFlUSOpffn0/qVURyM+hgkJ9hAOVKBkouNeIcjxpKV8NyQCoOWggWjv2WuSDu/Wlbnv6DNsL41Ja1ukQmavQTyTsE2OkZTzPCfbwXjiWglNiLeg3UjIe1+I0t5Z09Du8MQjh0yJRtmAaaVki36A/l5XGjtkulB7pkk4KqGKiBlgEoS2UaWUGuJKHpir1qEze52gDaOuelPP8nwbW1E/LWXHQY9327TwCF4by3XiyDpgOo6KJhpDRtwmrShOtSjdzqoxBoXHv+4lq4tb6YIZ1KQQbzZVa3nAca3l0WAdAGQMBieIg7/CT+PrFzXpIJefAAAAAElFTkSuQmCC);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.keyboradInp .keyborad_active {
+  border: 2px solid #d1824d;
+}
