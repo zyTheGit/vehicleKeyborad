@@ -165,17 +165,17 @@ class Keyborad extends Jquery {
     //键盘显示状态true为输入中文，false为输入英文
     this.status = true;
     //版本号
-    this.version="1.0.0";
+    this.version = "1.0.0";
     //使用详细
-    this.detail={
-      boxName:"放置键盘盒子的名称-String-必填项",
-      entryInputNa:"放置键盘输入框名称-String-必填项",
-      chArray:"有自己的默认值，显示中文车牌-Array-非必填项",
-      enArray:"有自己的默认值，显示字母和数字-Array-非必填项",
-      line:"键盘排列几行，默认显示5行-Int-非必填项",
-      pushCh:"可以往原有的中文键盘中添加自己的中文-Array-非必填项",
-      pushEn:"可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
-      inputLen:"现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项"
+    this.detail = {
+      boxName: "放置键盘盒子的名称-String-必填项",
+      entryInputNa: "放置键盘输入框名称-String-必填项",
+      chArray: "有自己的默认值，显示中文车牌-Array-非必填项",
+      enArray: "有自己的默认值，显示字母和数字-Array-非必填项",
+      line: "键盘排列几行，默认显示5行-Int-非必填项",
+      pushCh: "可以往原有的中文键盘中添加自己的中文-Array-非必填项",
+      pushEn: "可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
+      inputLen: "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项"
     }
   }
   init() {
@@ -438,7 +438,17 @@ class Keyborad extends Jquery {
   }
 
   //使用文档
-  showDoc(){
+  showDoc() {
     console.table(this.detail)
+  }
+
+  //获取输入车牌
+  getVehicleValue() {
+    if(this.saveValue.length==0)return "";
+    let html = "";
+    this.saveValue.forEach((item) => {
+      html += item;
+    })
+    return html;
   }
 }
