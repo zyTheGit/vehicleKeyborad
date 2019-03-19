@@ -196,8 +196,10 @@ require("./keyborad.css");
 
     //生成input输入框
     createInp() {
+      let divBox=document.createElement("div");
       let div = document.createElement("div");
       div.className = "keyboradInp";
+      divBox.className="keyboradInpBox";
       let frag = document.createDocumentFragment();
       for (let i = 0; i < this.inputLen; i++) {
         let span = document.createElement("span"),
@@ -218,7 +220,8 @@ require("./keyborad.css");
         frag.appendChild(span);
       }
       div.appendChild(frag);
-      document.querySelector(this.entryInputNa).appendChild(div);
+      divBox.appendChild(div);
+      document.querySelector(this.entryInputNa).appendChild(divBox);
       this.keyboradInpEvent();
     }
 
