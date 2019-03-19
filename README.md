@@ -22,7 +22,7 @@
   
   
  js 页面直接
- var keyBorad = new Keyborad({
+ var keyBorad = new Keybod({
       boxName: ".keyborad",
       entryInputNa:".inp"
     });
