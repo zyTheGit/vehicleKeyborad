@@ -5,7 +5,8 @@
 ![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/ch.jpg)
 
 ![EN键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/en.jpg)
-
+# 使用flex自动布局，适用于多端
+# 中英文键盘都可根据自己的需求定义
 # 使用方法
 + 页面引用`dist/keyborad.js`即可
 ```
