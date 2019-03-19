@@ -1,16 +1,24 @@
 const path = require('path');
-
 module.exports = {
-  mode:"production",
+  mode: "production",
   entry: './html/keyborad.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'keyborad.js'
+    filename: 'keyboard.js'
   },
   module: {
     rules: [{
       test: /\.css$/,
-      use: ['style-loader', 'css-loader']
+      use: [{
+          loader: 'style-loader'
+        },
+        {
+          loader: 'css-loader',
+          options: {
+            // modules: true
+          }
+        }
+      ]
     }]
   }
 };
