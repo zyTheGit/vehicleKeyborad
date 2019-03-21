@@ -191,7 +191,7 @@ require("./keyborad.css");
       if(!!this.writeBoxName&&!!this.entryInputNa)this.entryInputNa="";
       if(!this.writeBoxName){
         if(!this.entryInputNa){
-          throw new Error(this.entryInputNa);
+          throw new Error("entryInputNa或者writeBoxName字段是否为空");
         }
         this.createInp();
       }
@@ -255,7 +255,7 @@ require("./keyborad.css");
               let inputSpanAll = document.querySelectorAll(
                 _this.entryInputNa + " span[data-index]"
               );
-              if (!inputSpanAll) throw new Error(inputSpanAll);
+              if (!inputSpanAll) throw new Error("entryInputNa是否为空");
               if (_this.hasClass(this, "keyborad_switch")) {
                 //中文英文切换
                 _this.switchEnOrCh();
