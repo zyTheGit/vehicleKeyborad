@@ -58,6 +58,7 @@ require("./keyborad.css");
     constructor({
       boxName,
       entryInputNa,
+      writeBoxName,
       chArray,
       enArray,
       line,
@@ -70,6 +71,8 @@ require("./keyborad.css");
       this.boxName = boxName || "";
       //输入键盘名称
       this.entryInputNa = entryInputNa || "";
+      //存键盘操作的值的 盒子
+      this.writeBoxName = writeBoxName || "";
       //中文键盘
       this.chArray = chArray || [
         "京",
@@ -159,7 +162,7 @@ require("./keyborad.css");
       this.saveValue = [];
       //输入框的下标
       this.index = 0;
-      //车牌号的长度
+      //车牌号的长度，显示其实是八个车牌号，因为有一个点暂位置，所以是长度9
       this.inputLen = inputLen || 9;
       //9个span有一个span不做输入操作，所以减两个
       this.inpRedundantLen = 2;
@@ -170,7 +173,8 @@ require("./keyborad.css");
       //使用详细
       this.detail = {
         boxName: "放置键盘盒子的名称-String-必填项",
-        entryInputNa: "放置键盘输入框名称-String-必填项",
+        entryInputNa: "放置键盘输入框名称-String-非必填项（writeBoxName为空时，必填）",
+        writeBoxName:"显示操作键盘值的盒子的名称,input或者其他的元素都可以支持-String-非必填项（entryInputNa为空时，必填）",
         chArray: "有自己的默认值，显示中文车牌-Array-非必填项",
         enArray: "有自己的默认值，显示字母和数字-Array-非必填项",
         line: "键盘排列几行，默认显示5行-Int-非必填项",
@@ -183,7 +187,14 @@ require("./keyborad.css");
       this.chArray = this.chArray.concat(this.pushCh, ["中/EN", "删除"]);
       this.enArray = this.enArray.concat(this.pushEn, ["中/EN", "删除"]);
       this.createKeyBorad();
-      this.createInp();
+      //如果writeBoxName和entryInputNa全部传了参数，已用户自己的输入框为主
+      if(!!this.writeBoxName&&!!this.entryInputNa)this.entryInputNa="";
+      if(!this.writeBoxName){
+        if(!this.entryInputNa){
+          throw new Error(this.entryInputNa);
+        }
+        this.createInp();
+      }
     }
     createKeyBorad() {
       if (!this.boxName) {
@@ -196,10 +207,10 @@ require("./keyborad.css");
 
     //生成input输入框
     createInp() {
-      let divBox=document.createElement("div");
+      let divBox = document.createElement("div");
       let div = document.createElement("div");
       div.className = "keyboradInp";
-      divBox.className="keyboradInpBox";
+      divBox.className = "keyboradInpBox";
       let frag = document.createDocumentFragment();
       for (let i = 0; i < this.inputLen; i++) {
         let span = document.createElement("span"),
@@ -244,46 +255,39 @@ require("./keyborad.css");
               let inputSpanAll = document.querySelectorAll(
                 _this.entryInputNa + " span[data-index]"
               );
+              if (!inputSpanAll) throw new Error(inputSpanAll);
               if (_this.hasClass(this, "keyborad_switch")) {
                 //中文英文切换
                 _this.switchEnOrCh();
               } else if (_this.hasClass(this, "keyborad_del")) {
                 //删除操作
-                inputSpanAll.forEach(item => {
-                  _this.removeClass(item, "keyborad_active");
-                });
                 _this.saveValue[_this.index] = "";
-                inputSpanAll[_this.index].innerHTML = "";
-                if (_this.index > 0) {
-                  _this.index--;
-                } else {
-                  _this.status = false;
-                  _this.switchEnOrCh();
-                }
-                _this.addClass(inputSpanAll[_this.index], "keyborad_active");
+                if(!_this.writeBoxName){
+                  _this.builtInDel(_this, inputSpanAll);
+                }else{
+                  var writeBoxName=document.querySelector(_this.writeBoxName);
+                  if (_this.index > 0) {
+                    _this.index--;
+                  } else {
+                    _this.status = false;
+                    _this.switchEnOrCh();
+                  }
+                  (writeBoxName.innerText)?writeBoxName.innerText=_this.getVehicleValue():writeBoxName.value=_this.getVehicleValue();
+                };
               } else {
                 //键盘输入操作
-                let especialExis = _this.hasClass(
-                  document.querySelector(".keyboradInp span:last-child"),
-                  "keyborad_especial"
-                );
-                inputSpanAll.forEach(item => {
-                  _this.removeClass(item, "keyborad_active");
-                });
                 _this.saveValue[_this.index] = txt;
-                inputSpanAll[_this.index].innerHTML = txt;
-                if (especialExis && _this.index == 6) {
-                  _this.addClass(inputSpanAll[_this.index], "keyborad_active");
-                  return false;
-                }
-                if (_this.index < _this.inputLen - _this.inpRedundantLen) {
-                  _this.index++;
-                }
-                _this.addClass(inputSpanAll[_this.index], "keyborad_active");
-                if (_this.index >= 1) {
-                  _this.status = true;
-                  _this.switchEnOrCh();
-                }
+                if(!_this.writeBoxName){
+                  _this.builtInEvalua(_this, inputSpanAll, txt);
+                }else{
+                  var writeBoxName=document.querySelector(_this.writeBoxName);
+                  if (_this.index < _this.inputLen - _this.inpRedundantLen) _this.index++;
+                  if (_this.index >= 1) {
+                    _this.status = true;
+                    _this.switchEnOrCh();
+                  }
+                  (writeBoxName.innerText)?writeBoxName.innerText=_this.getVehicleValue():writeBoxName.value=_this.getVehicleValue();
+                };
               }
               _this.eventBubbling(e);
             },
@@ -291,6 +295,45 @@ require("./keyborad.css");
           );
         })(i);
       }
+    }
+
+    //内置自己生成的input赋值操作
+    builtInEvalua(_this, inputSpanAll, txt) {
+      let especialExis = _this.hasClass(
+        document.querySelector(".keyboradInp span:last-child"),
+        "keyborad_especial"
+      );
+      inputSpanAll[_this.index].innerHTML = txt;
+      inputSpanAll.forEach(item => {
+        _this.removeClass(item, "keyborad_active");
+      });
+      if (especialExis && _this.index == 6) {
+        _this.addClass(inputSpanAll[_this.index], "keyborad_active");
+        return false;
+      }
+      if (_this.index < _this.inputLen - _this.inpRedundantLen) {
+        _this.index++;
+      }
+      _this.addClass(inputSpanAll[_this.index], "keyborad_active");
+      if (_this.index >= 1) {
+        _this.status = true;
+        _this.switchEnOrCh();
+      }
+    }
+
+    //内置自己生成的input删除操作
+    builtInDel(_this, inputSpanAll) {
+      inputSpanAll[_this.index].innerHTML = "";
+      inputSpanAll.forEach(item => {
+        _this.removeClass(item, "keyborad_active");
+      });
+      if (_this.index > 0) {
+        _this.index--;
+      } else {
+        _this.status = false;
+        _this.switchEnOrCh();
+      }
+      _this.addClass(inputSpanAll[_this.index], "keyborad_active");
     }
 
     //输入框点击事件
