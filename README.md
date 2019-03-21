@@ -1,7 +1,7 @@
 
 # vehicleKeyborad
 普通车牌和新能源车牌
-==keyborad==写错了,应该是==keyboard==-_-
+== keyborad ==写错了,应该是== keyboard ==-_-
 
 ![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/ch.jpg)
 
