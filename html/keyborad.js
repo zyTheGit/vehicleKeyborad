@@ -174,7 +174,7 @@ require("./keyborad.css");
       this.detail = {
         boxName: "放置键盘盒子的名称-String-必填项",
         entryInputNa: "放置键盘输入框名称-String-非必填项（writeBoxName为空时，必填）",
-        writeBoxName:"显示操作键盘值的盒子的名称,input或者其他的元素都可以支持-String-非必填项（entryInputNa为空时，必填）",
+        writeBoxName: "显示操作键盘值的盒子的名称,input或者其他的元素都可以支持-String-非必填项（entryInputNa为空时，必填）",
         chArray: "有自己的默认值，显示中文车牌-Array-非必填项",
         enArray: "有自己的默认值，显示字母和数字-Array-非必填项",
         line: "键盘排列几行，默认显示5行-Int-非必填项",
@@ -188,12 +188,14 @@ require("./keyborad.css");
       this.enArray = this.enArray.concat(this.pushEn, ["中/EN", "删除"]);
       this.createKeyBorad();
       //如果writeBoxName和entryInputNa全部传了参数，已用户自己的输入框为主
-      if(!!this.writeBoxName&&!!this.entryInputNa)this.entryInputNa="";
-      if(!this.writeBoxName){
-        if(!this.entryInputNa){
+      if (!!this.writeBoxName && !!this.entryInputNa) this.entryInputNa = "";
+      if (!this.writeBoxName) {
+        if (!this.entryInputNa) {
           throw new Error("entryInputNa或者writeBoxName字段是否为空");
         }
         this.createInp();
+      } else {
+        this.builtInShow();
       }
     }
     createKeyBorad() {
@@ -262,31 +264,31 @@ require("./keyborad.css");
               } else if (_this.hasClass(this, "keyborad_del")) {
                 //删除操作
                 _this.saveValue[_this.index] = "";
-                if(!_this.writeBoxName){
+                if (!_this.writeBoxName) {
                   _this.builtInDel(_this, inputSpanAll);
-                }else{
-                  var writeBoxName=document.querySelector(_this.writeBoxName);
+                } else {
+                  let writeBoxName = document.querySelector(_this.writeBoxName);
                   if (_this.index > 0) {
                     _this.index--;
                   } else {
                     _this.status = false;
                     _this.switchEnOrCh();
                   }
-                  (writeBoxName.innerText)?writeBoxName.innerText=_this.getVehicleValue():writeBoxName.value=_this.getVehicleValue();
+                  (writeBoxName.innerText) ? writeBoxName.innerText = _this.getVehicleValue(): writeBoxName.value = _this.getVehicleValue();
                 };
               } else {
                 //键盘输入操作
                 _this.saveValue[_this.index] = txt;
-                if(!_this.writeBoxName){
+                if (!_this.writeBoxName) {
                   _this.builtInEvalua(_this, inputSpanAll, txt);
-                }else{
-                  let writeBoxName=document.querySelector(_this.writeBoxName);
+                } else {
+                  let writeBoxName = document.querySelector(_this.writeBoxName);
                   if (_this.index < _this.inputLen - _this.inpRedundantLen) _this.index++;
                   if (_this.index >= 1) {
                     _this.status = true;
                     _this.switchEnOrCh();
                   }
-                  (writeBoxName.value===undefined)?writeBoxName.innerText=_this.getVehicleValue():writeBoxName.value=_this.getVehicleValue();
+                  (writeBoxName.value === undefined) ? writeBoxName.innerText = _this.getVehicleValue(): writeBoxName.value = _this.getVehicleValue();
                 };
               }
               _this.eventBubbling(e);
@@ -409,6 +411,17 @@ require("./keyborad.css");
     //键盘显示
     keyboradHide() {
       document.querySelector(".keyboradZy").style.display = "none";
+    }
+
+    //外置输入框点击显示键盘
+    builtInShow() {
+      let _this = this;
+      let writeBoxName = document.querySelector(_this.writeBoxName);
+      if (!writeBoxName) return false;
+      writeBoxName.addEventListener("click",function(e){
+        _this.keyboradShow();
+        _this.eventBubbling(e);
+      }) 
     }
 
     //循环添加元素
