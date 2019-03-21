@@ -280,13 +280,13 @@ require("./keyborad.css");
                 if(!_this.writeBoxName){
                   _this.builtInEvalua(_this, inputSpanAll, txt);
                 }else{
-                  var writeBoxName=document.querySelector(_this.writeBoxName);
+                  let writeBoxName=document.querySelector(_this.writeBoxName);
                   if (_this.index < _this.inputLen - _this.inpRedundantLen) _this.index++;
                   if (_this.index >= 1) {
                     _this.status = true;
                     _this.switchEnOrCh();
                   }
-                  (writeBoxName.innerText)?writeBoxName.innerText=_this.getVehicleValue():writeBoxName.value=_this.getVehicleValue();
+                  (writeBoxName.value===undefined)?writeBoxName.innerText=_this.getVehicleValue():writeBoxName.value=_this.getVehicleValue();
                 };
               }
               _this.eventBubbling(e);
