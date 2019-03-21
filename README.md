@@ -22,11 +22,21 @@
   
   
  js 页面直接
- var keyBorad = new Keybod({
+ ** 虽然样式名称还是keyborad但是调用时已经修改为KeyBoard **
+ 1.显示写的输入框
+    var keyboard = new Keyboard({
       boxName: ".keyborad",
-      entryInputNa:".inp"
+      writeBoxName:".inp"
     });
-    keyBorad.init();
+    
+  or 
+2.使用内置创建的输入框
+   var keyboard = new Keyboard({
+    boxName: ".keyborad",
+    entryInputNa:".inp"
+   });
+    
+   keyboard.init();
 ```
 
 # new Keyborad(Object) 传的参数
