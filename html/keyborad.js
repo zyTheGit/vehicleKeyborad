@@ -1,5 +1,5 @@
 require("./keyborad.css");
-(function () {
+(function (window,document) {
   class Jquery {
     constructor(name = "") {
       this.element = this.getEle(name);
@@ -64,7 +64,8 @@ require("./keyborad.css");
       line,
       pushCh,
       pushEn,
-      inputLen
+      inputLen,
+      keyboardFn
     }) {
       super(boxName);
       //外层盒子名称,显示键盘
@@ -170,6 +171,8 @@ require("./keyborad.css");
       this.status = true;
       //版本号
       this.version = "1.0.0";
+	  //键盘点击回调
+	  this.keyboardFn=keyboardFn||null;
       //使用详细
       this.detail = {
         boxName: "放置键盘盒子的名称-String-必填项",
@@ -291,6 +294,7 @@ require("./keyborad.css");
                   (writeBoxName.value === undefined) ? writeBoxName.innerText = _this.getVehicleValue(): writeBoxName.value = _this.getVehicleValue();
                 };
               }
+			  _this.keyboardFn&&_this.keyboardFn();
               _this.eventBubbling(e);
             },
             false
@@ -513,4 +517,4 @@ require("./keyborad.css");
     }
   }
   window.Keyboard = Keyboard;
-})()
+})(window,document)
