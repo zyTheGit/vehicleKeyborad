@@ -183,7 +183,8 @@ require("./keyborad.css");
         line: "键盘排列几行，默认显示5行-Int-非必填项",
         pushCh: "可以往原有的中文键盘中添加自己的中文-Array-非必填项",
         pushEn: "可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
-        inputLen: "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项"
+        inputLen: "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项",
+		keyboardFn:"点击键盘的回调防暑，-Function-非必填项"
       }
     }
     init() {
