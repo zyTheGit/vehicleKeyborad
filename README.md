@@ -33,7 +33,8 @@
 2.使用内置创建的输入框
    var keyboard = new Keyboard({
     boxName: ".keyborad",
-    entryInputNa:".inp"
+    entryInputNa:".inp",
+    pageVehicleSplit:"鄂j401",
    });
     
    keyboard.init();
