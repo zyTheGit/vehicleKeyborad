@@ -52,7 +52,7 @@
 + `pushEn`可以往原有的字母和数字键盘中添加自己的字母和数字-`Array`-非必填项
 + `inputLen`现实几个键盘输入框，默认是9个(其实显示出来是8位的车牌)，带中间一个点-`Int`-非必填项
 + `keyboardFn`点击键盘的回调防暑，-Function-非必填项
-+ `pageVehicleSplit`: "页面中传来的部分车牌，String"
++ `pageVehicleSplit`: "页面中传来的部分车牌，String-非必填项
 
 # 返回的事件和参数
 + `init` Function 键盘创建和初始化
