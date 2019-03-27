@@ -13,17 +13,15 @@
   <div class="inp"></div>
   <div class="keyborad"></div>
   <!-- <script src="./keyborad.js"></script> -->
-  <script src="../dist/keyborad.js"></script>
+  <script src="../dist/keyboard.js"></script>
   <script>
-    var keyboard = new Keyboard({
+    var keyBorad = new Keyboard({
       boxName: ".keyborad",
-      entryInputNa:".inp",
-	  keyboardFn:function(){
-		console.log(keyboard.getVehicleValue())
-	  }
+      // writeBoxName:".inp",
+      entryInputNa:".inp"
     });
-    keyboard.init();
-    console.log(keyboard)
+    keyBorad.init();
+    console.log(keyBorad)
   </script>
 </body>
 
