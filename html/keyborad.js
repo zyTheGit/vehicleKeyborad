@@ -1,16 +1,16 @@
 require("./keyborad.css");
-(function(window, document) {
+(function (window, document) {
   class Jquery {
     constructor(name = "") {
       this.element = this.getEle(name);
     }
     append(child) {
-      this.forEle(function(item) {
+      this.forEle(function (item) {
         item.appendChild(child);
       });
     }
     html(child) {
-      this.forEle(function(item) {
+      this.forEle(function (item) {
         item.innerHTML = child;
       });
     }
@@ -65,7 +65,8 @@ require("./keyborad.css");
       pushCh,
       pushEn,
       inputLen,
-      keyboardFn
+      keyboardFn,
+      pageVehicleSplit
     }) {
       super(boxName);
       //外层盒子名称,显示键盘
@@ -173,21 +174,20 @@ require("./keyborad.css");
       this.version = "1.0.0";
       //键盘点击回调
       this.keyboardFn = keyboardFn || null;
+      //页面中传来的车牌号
+      this.pageVehicleSplit = pageVehicleSplit || "";
       //使用详细
       this.detail = {
         boxName: "放置键盘盒子的名称-String-必填项",
-        entryInputNa:
-          "放置键盘输入框名称-String-非必填项（writeBoxName为空时，必填）",
-        writeBoxName:
-          "显示操作键盘值的盒子的名称,input或者其他的元素都可以支持-String-非必填项（entryInputNa为空时，必填）",
+        entryInputNa: "放置键盘输入框名称-String-非必填项（writeBoxName为空时，必填）",
+        writeBoxName: "显示操作键盘值的盒子的名称,input或者其他的元素都可以支持-String-非必填项（entryInputNa为空时，必填）",
         chArray: "有自己的默认值，显示中文车牌-Array-非必填项",
         enArray: "有自己的默认值，显示字母和数字-Array-非必填项",
         line: "键盘排列几行，默认显示5行-Int-非必填项",
         pushCh: "可以往原有的中文键盘中添加自己的中文-Array-非必填项",
-        pushEn:
-          "可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
-        inputLen:
-          "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项"
+        pushEn: "可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
+        inputLen: "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项",
+        entryInputNa: "页面中传来的部分车牌，String"
       };
     }
     init() {
@@ -204,6 +204,7 @@ require("./keyborad.css");
       } else {
         this.builtInShow();
       }
+      this.getVehicleSplit();
     }
     createKeyBorad() {
       if (!this.boxName) {
@@ -256,10 +257,10 @@ require("./keyborad.css");
         array = [...allEle];
       }
       for (let i = 0; i < array.length; i++) {
-        (function(i) {
+        (function (i) {
           array[i].addEventListener(
             "click",
-            function(e) {
+            function (e) {
               let txt = this.innerText;
               let inputSpanAll = document.querySelectorAll(
                 _this.entryInputNa + " span[data-index]"
@@ -276,14 +277,14 @@ require("./keyborad.css");
                   let writeBoxName = document.querySelector(_this.writeBoxName);
                   if (_this.index > 0 && !_this.saveValue[_this.index]) {
                     _this.index--;
-                  } else if(_this.index==0){
+                  } else if (_this.index == 0) {
                     _this.status = false;
                     _this.switchEnOrCh();
                   }
                   _this.saveValue[_this.index] = "";
-                  writeBoxName.innerText
-                    ? (writeBoxName.innerText = _this.getVehicleValue())
-                    : (writeBoxName.value = _this.getVehicleValue());
+                  writeBoxName.innerText ?
+                    (writeBoxName.innerText = _this.getVehicleValue()) :
+                    (writeBoxName.value = _this.getVehicleValue());
                 }
               } else {
                 //键盘输入操作
@@ -297,10 +298,9 @@ require("./keyborad.css");
                   if (_this.index >= 1) {
                     _this.status = true;
                     _this.switchEnOrCh();
-                  }
-                  !writeBoxName.value
-                    ? (writeBoxName.innerText = _this.getVehicleValue())
-                    : (writeBoxName.value = _this.getVehicleValue());
+                  }!writeBoxName.value ?
+                    (writeBoxName.innerText = _this.getVehicleValue()) :
+                    (writeBoxName.value = _this.getVehicleValue());
                 }
               }
               _this.keyboardFn && _this.keyboardFn();
@@ -342,9 +342,9 @@ require("./keyborad.css");
       inputSpanAll.forEach(item => {
         _this.removeClass(item, "keyborad_active");
       });
-      if (_this.index > 0&&!_this.saveValue[_this.index]) {
+      if (_this.index > 0 && !_this.saveValue[_this.index]) {
         _this.index--;
-      } else if(_this.index==0){
+      } else if (_this.index == 0) {
         _this.status = false;
         _this.switchEnOrCh();
       }
@@ -365,10 +365,10 @@ require("./keyborad.css");
         array = [...allEle];
       }
       for (let i = 0; i < array.length; i++) {
-        (function(i) {
+        (function (i) {
           array[i].addEventListener(
             "click",
-            function(e) {
+            function (e) {
               let inputSpanAll = document.querySelectorAll(
                 _this.entryInputNa + " span[data-index]"
               );
@@ -432,7 +432,7 @@ require("./keyborad.css");
       let _this = this;
       let writeBoxName = document.querySelector(_this.writeBoxName);
       if (!writeBoxName) return false;
-      writeBoxName.addEventListener("click", function(e) {
+      writeBoxName.addEventListener("click", function (e) {
         _this.keyboradShow();
         _this.eventBubbling(e);
       });
@@ -524,6 +524,39 @@ require("./keyborad.css");
         html += item;
       });
       return html;
+    }
+
+    //获取页面传的车牌字符串
+    getVehicleSplit() {
+      if (!!this.pageVehicleSplit && typeof(this.pageVehicleSplit) == "string") {
+        this.pageVehicleSplit=this.pageVehicleSplit.toLocaleUpperCase();
+        this.saveValue = [...this.pageVehicleSplit.split("")];
+        this.status = true;
+        this.switchEnOrCh();
+        this.assignmentInput();
+      }
+    }
+
+    //给input赋值
+    assignmentInput() {
+      var _this = this;
+      let inputSpanAll = document.querySelectorAll(
+        _this.entryInputNa + " span[data-index]"
+      );
+      Array.from(inputSpanAll).forEach(function (item, index) {
+        _this.removeClass(item, "keyborad_active");
+        var dataIndex = item.getAttribute("data-index");
+        if (dataIndex >= _this.saveValue.length) {
+          if (dataIndex == _this.saveValue.length) {
+            _this.addClass(item, "keyborad_active");
+            _this.index = dataIndex;
+          }
+          return false;
+        }
+        if (!!dataIndex) {
+          item.innerHTML = _this.saveValue[dataIndex];
+        }
+      })
     }
   }
   window.Keyboard = Keyboard;
