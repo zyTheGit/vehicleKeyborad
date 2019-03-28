@@ -298,9 +298,8 @@ require("./keyborad.css");
                   if (_this.index >= 1) {
                     _this.status = true;
                     _this.switchEnOrCh();
-                  }!writeBoxName.value ?
-                    (writeBoxName.innerText = _this.getVehicleValue()) :
-                    (writeBoxName.value = _this.getVehicleValue());
+                  };
+				  writeBoxName.nodeName=="INPUT" ?(writeBoxName.value = _this.getVehicleValue()):(writeBoxName.innerText = _this.getVehicleValue());
                 }
               }
               _this.keyboardFn && _this.keyboardFn();
