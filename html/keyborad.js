@@ -557,6 +557,23 @@ require("./keyborad.css");
         }
       })
     }
+	
+	//键盘值初始化
+	initValue(){
+		 let inputSpanAll = document.querySelectorAll(
+                _this.entryInputNa + " span[data-index]"
+              );
+		this.saveValue='';
+		this.index=0;
+		this.status = false;
+        this.switchEnOrCh();
+      inputSpanAll.forEach((item,index) => {
+		 inputSpanAll[index].innerHTML = "";
+        _this.removeClass(item, "keyborad_active");
+      });
+      _this.addClass(inputSpanAll[_this.index], "keyborad_active");
+	}
+
   }
   window.Keyboard = Keyboard;
 })(window, document);
