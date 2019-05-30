@@ -61,3 +61,4 @@
 + `keyboradShow` Function 键盘显示
 + `keyboradHide` Function 键盘隐藏
 + `showDoc` Function 显示使用文档
++ `initValue` Function 初始化键盘
