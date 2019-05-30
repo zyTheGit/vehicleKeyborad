@@ -563,7 +563,7 @@ require("./keyborad.css");
 		 let inputSpanAll = document.querySelectorAll(
                 this.entryInputNa + " span[data-index]"
               );
-		this.saveValue='';
+		this.saveValue=[];
 		this.index=0;
 		this.status = false;
         this.switchEnOrCh();
@@ -571,7 +571,9 @@ require("./keyborad.css");
 		 inputSpanAll[index].innerHTML = "";
 		this.removeClass(item, "keyborad_active");
       });
-      this.addClass(inputSpanAll[_this.index], "keyborad_active");
+      this.addClass(inputSpanAll[0], "keyborad_active");
+      this.addClass(inputSpanAll[inputSpanAll.length-1], "keyborad_especial key_item");
+	  inputSpanAll[inputSpanAll.length-1].innerHTML="<font></font>";
 	}
 
   }
