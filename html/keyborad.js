@@ -561,7 +561,7 @@ require("./keyborad.css");
 	//键盘值初始化
 	initValue(){
 		 let inputSpanAll = document.querySelectorAll(
-                _this.entryInputNa + " span[data-index]"
+                this.entryInputNa + " span[data-index]"
               );
 		this.saveValue='';
 		this.index=0;
@@ -569,9 +569,9 @@ require("./keyborad.css");
         this.switchEnOrCh();
       inputSpanAll.forEach((item,index) => {
 		 inputSpanAll[index].innerHTML = "";
-        _this.removeClass(item, "keyborad_active");
+		this.removeClass(item, "keyborad_active");
       });
-      _this.addClass(inputSpanAll[_this.index], "keyborad_active");
+      this.addClass(inputSpanAll[_this.index], "keyborad_active");
 	}
 
   }
