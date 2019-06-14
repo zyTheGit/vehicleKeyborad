@@ -57,11 +57,11 @@
 + `enabledEn`: "需要禁用的英文键-Array-非必填项"
 
 # 返回的事件和参数
-+ `init` Function 键盘创建和初始化
-+ `getVehicleValue` Function 返回输入的车牌
-+ `saveValue` Array 返回输入的车牌
-+ `keyboardShow` Function 键盘显示
-+ `keyboardHide` Function 键盘隐藏
-+ `showDoc` Function 显示使用文档
-+ `initValue` Function 初始化键盘
-+ `backpaceEventFn` Function 键盘上的backpack键的事件
++ `init` -Function- 键盘创建和初始化
++ `getVehicleValue` -Function- 返回输入的车牌
++ `saveValue` -Array- 返回输入的车牌
++ `keyboardShow` -Function- 键盘显示
++ `keyboardHide` -Function- 键盘隐藏
++ `showDoc` -Function- 显示使用文档
++ `initValue` -Function- 初始化键盘
++ `backpaceEventFn` -Function- 键盘上的backpack键的事件
