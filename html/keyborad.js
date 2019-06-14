@@ -312,10 +312,10 @@ require("./keyborad.css");
                     _this._switchEnOrCh();
                   };
                   if (writeBoxName.nodeName == "INPUT") {
-                    writeBoxName.value = _this._getVehicleValue();
+                    writeBoxName.value = _this.getVehicleValue();
                     writeBoxName.focus();
                   } else {
-                    writeBoxName.innerText = _this._getVehicleValue();
+                    writeBoxName.innerText = _this.getVehicleValue();
                   }
                 }
               }
@@ -438,8 +438,8 @@ require("./keyborad.css");
       }
       this.saveValue[this.index] = "";
       writeBoxName.innerText ?
-        (writeBoxName.innerText = this._getVehicleValue()) :
-        (writeBoxName.value = this._getVehicleValue());
+        (writeBoxName.innerText = this.getVehicleValue()) :
+        (writeBoxName.value = this.getVehicleValue());
     }
 
     //中英文切换
