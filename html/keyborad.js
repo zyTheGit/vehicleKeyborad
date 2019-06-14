@@ -361,13 +361,13 @@ require("./keyborad.css");
       inputSpanAll.forEach(item => {
         _this.removeClass(item, "keyborad_active");
       });
+      _this.saveValue[_this.index] = "";
       if (_this.index > 0 && !_this.saveValue[_this.index]) {
         _this.index--;
       } else if (_this.index == 0) {
         _this.status = false;
         _this._switchEnOrCh();
       }
-      _this.saveValue[_this.index] = "";
       _this.addClass(inputSpanAll[_this.index], "keyborad_active");
     }
 
