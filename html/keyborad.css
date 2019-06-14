@@ -50,26 +50,42 @@
 
 .keyboradZy .ch>div>span:active,
 .keyboradZy .en>div>span:active {
-  background: #f6c;
+  background-color: #ddc;
   box-shadow: 0 0 0 0 #fff;
-  color: #fff;
   border-radius: 5px;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  appearance: none;
+  -webkit-appearance: none;
 }
- .keyboradInp>span {
+
+.keyboradZy .keyborad_del {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABZ0lEQVRYR+2W200DMRRETzqACoAKgAoIHdABoQKgA+ggVAAdQAfQAUkH0AF0gEbaKxnHr2tttD/rz6w1czx3vNkFE6/FxP7MAHMCrQksgVfgYKTS/gCXwKYFYAU8A1vgbSQAaX4AqxpAaK4URD7GkrnWsgSwL3MZVwH2aV4FaDU/Ay6Ap8RMVNZb4DEzr2wCrebStb0vwE1gJPN34AQ4zvQmCXA1XDW1vbVwMr8GDCI0l8amNQHFKepvh7lphxDS0clL5jsdUEyfwC8ggZ6rZhASPy+c3KD/jUCx6YfTYZYS8yyLXfBacSdSWjsd6IWIZ34XdSJ3kGQJQwi9p21TTiRXuLiYTQnYJoM4sj+Lwix02odM4Qzi0HMNeyAEnCtt6Vn1VexJwlPY5C0ozVikGsf90O4eM1cH4s29t6MGWh1BKCCI9XC9asKe50p1XfsgCQXV+rE+yb5spB4Az+ma984AcwKTJ/AHQABhIXkmPiIAAAAASUVORK5CYII=);
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 10px !important;
+}
+
+.keyboradZy div>span.enableBtn {
+  background-color: #ddd;
+  pointer-events: none;
+}
+
+.keyboradInp>span {
   display: block;
   width: 50px;
-  height: 60px;
   text-align: center;
-  line-height: 60px;
+  height: 55px;
+  line-height: 55px;
   margin: 0 2px;
   border: 2px solid #cdc496;
 }
 
 .keyboradInp .keyborad_interval {
-  width: 20px;
+  width: 5px;
   box-shadow: none;
   border: none;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 600;
 }
 
@@ -78,9 +94,10 @@
   height: 100%;
   display: block;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAvCAMAAABXLiNqAAAAe1BMVEX////6+vr4+Pj8/PzNzc3KysrAwMD29vbr6+vm5ubS0tLY2Njx8fG8vLzv7+/U1NSlpaXf39+1tbXCwsKysrLa2tq5ubmurq6oqKjo6OjPz8/z8/OdnZ2QkJDh4eHHx8eqqqqhoaHc3NzExMSYmJiWlpbj4+OJiYmIiIg8n+V6AAABhklEQVQ4y+2Ux47dIBRA6b2Du/Nsv5b8/xfG2FlEWcx4k0WiORIS5QC69yLAF/8LnF/z+oAueeGi1/efe3CnDxOE+EMNh+/fDn504EP8Qsk8U7po8Clrfz2OK8zztURTCsEX/wD4t0eJYH2s5/Sf3qTgLsjF7/0kEdDvuhVTDzUhShFqquUYe7ElhpQFAGOSCYzxtu57hnl8smwLs6J6/GFlUSOpffn0/qVURyM+hgkJ9hAOVKBkouNeIcjxpKV8NyQCoOWggWjv2WuSDu/Wlbnv6DNsL41Ja1ukQmavQTyTsE2OkZTzPCfbwXjiWglNiLeg3UjIe1+I0t5Z09Du8MQjh0yJRtmAaaVki36A/l5XGjtkulB7pkk4KqGKiBlgEoS2UaWUGuJKHpir1qEze52gDaOuelPP8nwbW1E/LWXHQY9327TwCF4by3XiyDpgOo6KJhpDRtwmrShOtSjdzqoxBoXHv+4lq4tb6YIZ1KQQbzZVa3nAca3l0WAdAGQMBieIg7/CT+PrFzXpIJefAAAAAElFTkSuQmCC);
-  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  transform: scale(.8);
+  -webkit-transform: scale(.8);
 }
 
 .keyboradInp .keyborad_active {
