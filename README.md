@@ -1,7 +1,6 @@
 
-# vehicleKeyborad
+# vehicleKeyboad
 普通车牌和新能源车牌
-== keyborad ==写错了,应该是== keyboard ==-_-
 
 ![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/ch.jpg)
 
@@ -53,6 +52,8 @@
 + `inputLen`现实几个键盘输入框，默认是9个(其实显示出来是8位的车牌)，带中间一个点-`Int`-非必填项
 + `keyboardFn`点击键盘的回调防暑，-Function-非必填项
 + `pageVehicleSplit`: "页面中传来的部分车牌，String-非必填项
++ enabledCh: "需要禁用的中文键-Array-非必填项",
++ enabledEn: "需要禁用的英文键-Array-非必填项"
 
 # 返回的事件和参数
 + `init` Function 键盘创建和初始化
