@@ -77,7 +77,8 @@ require("./keyborad.css");
       keyboardFn,
       pageVehicleSplit,
       enabledCh,
-      enabledEn
+      enabledEn,
+      backpaceEventFn
     }) {
       super(boxName);
       //外层盒子名称,显示键盘
@@ -185,6 +186,8 @@ require("./keyborad.css");
       this.version = "2.0.0";
       //键盘点击回调
       this.keyboardFn = keyboardFn || null;
+      //backpace点击回调
+      this.backpaceEventFn = backpaceEventFn || null;
       //页面中传来的车牌号
       this.pageVehicleSplit = pageVehicleSplit || "";
       //需要禁用的中文键
@@ -209,7 +212,9 @@ require("./keyborad.css");
         inputLen: "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项",
         pageVehicleSplit: "页面中传来的部分车牌，String",
         enabledCh: "需要禁用的中文键-Array-非必填项",
-        enabledEn: "需要禁用的英文键-Array-非必填项"
+        enabledEn: "需要禁用的英文键-Array-非必填项",
+        keyboardFn: "键盘点击回调-Function-非必填项",
+        backpaceEventFn: "backpace点击回调-Function-非必填项",
       };
     }
     init() {
@@ -440,6 +445,7 @@ require("./keyborad.css");
       writeBoxName.innerText ?
         (writeBoxName.innerText = this.getVehicleValue()) :
         (writeBoxName.value = this.getVehicleValue());
+      this.backpaceEventFn && this.backpaceEventFn();
     }
 
     //中英文切换
@@ -618,6 +624,15 @@ require("./keyborad.css");
     }
     //键盘显示
     keyboradHide() {
+      document.querySelector(".keyboradZy").style.display = "none";
+    }
+
+    //键盘显示
+    keyboardShow() {
+      document.querySelector(".keyboradZy").style.display = "block";
+    }
+    //键盘显示
+    keyboardHide() {
       document.querySelector(".keyboradZy").style.display = "none";
     }
 
