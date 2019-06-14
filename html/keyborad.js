@@ -388,8 +388,7 @@ require("./keyborad.css");
                 "keyborad_especial"
               );
               let dataIndex = this.getAttribute("data-index");
-              let keyboradShow = document.querySelector(".keyboradZy").style
-                .display;
+              let keyboradShow = document.querySelector(".keyboradZy").style.display;
               if (keyboradShow == "none") {
                 _this.keyboradShow();
               }
@@ -536,17 +535,6 @@ require("./keyborad.css");
       e.stopPropagation ? e.stopPropagation() : (e.cancelBubbel = true);
     }
 
-
-    //获取输入车牌
-    _getVehicleValue() {
-      if (this.saveValue.length == 0) return "";
-      let html = "";
-      this.saveValue.forEach(item => {
-        html += item;
-      });
-      return html;
-    }
-
     //获取页面传的车牌字符串
     _getVehicleSplit() {
       if (!!this.pageVehicleSplit && typeof (this.pageVehicleSplit) == "string") {
@@ -609,6 +597,17 @@ require("./keyborad.css");
         this._builtInShow();
       }
     }
+
+    //获取输入车牌
+    getVehicleValue() {
+      if (this.saveValue.length == 0) return "";
+      let html = "";
+      this.saveValue.forEach(item => {
+        html += item;
+      });
+      return html;
+    }
+
     //键盘显示
     keyboradShow() {
       document.querySelector(".keyboradZy").style.display = "block";
