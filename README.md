@@ -17,14 +17,14 @@
   # 外层的盒子名称都可自己定义
   # 和js的boxName、entryInputNa名称对应即可
   <div class="inp"></div>  
-  <div class="keyborad"></div>
+  <div class="keyboard"></div>
   
   
  js 页面直接
  ** 虽然样式名称还是keyborad但是调用时已经修改为KeyBoard **
  1.显示写的输入框
     var keyboard = new Keyboard({
-      boxName: ".keyborad",
+      boxName: ".keyboard",
       writeBoxName:".inp"
     });
     
@@ -35,6 +35,7 @@
     entryInputNa:".inp",
     pageVehicleSplit:"鄂j401",//页面传的车牌
     keyboardFn:function(){},//键盘点击回调事件
+    backpaceEventFn:function(){},//键盘backpace点击回调事件
    });
     
    keyboard.init();
@@ -52,14 +53,15 @@
 + `inputLen`现实几个键盘输入框，默认是9个(其实显示出来是8位的车牌)，带中间一个点-`Int`-非必填项
 + `keyboardFn`点击键盘的回调防暑，-Function-非必填项
 + `pageVehicleSplit`: "页面中传来的部分车牌，String-非必填项
-+ enabledCh: "需要禁用的中文键-Array-非必填项",
-+ enabledEn: "需要禁用的英文键-Array-非必填项"
++ `enabledCh`: "需要禁用的中文键-Array-非必填项",
++ `enabledEn`: "需要禁用的英文键-Array-非必填项"
 
 # 返回的事件和参数
 + `init` Function 键盘创建和初始化
 + `getVehicleValue` Function 返回输入的车牌
 + `saveValue` Array 返回输入的车牌
-+ `keyboradShow` Function 键盘显示
-+ `keyboradHide` Function 键盘隐藏
++ `keyboardShow` Function 键盘显示
++ `keyboardHide` Function 键盘隐藏
 + `showDoc` Function 显示使用文档
 + `initValue` Function 初始化键盘
++ `backpaceEventFn` Function 键盘上的backpack键的事件
