@@ -464,6 +464,10 @@ require("./keyborad.css");
         _this.keyboradShow();
         _this._eventBubbling(e);
       });
+      document.querySelector(".keyboradZy").addEventListener("click", function (e) {
+        _this.keyboradShow();
+        _this._eventBubbling(e);
+      });
     }
 
     //循环添加键盘
