@@ -57,7 +57,7 @@
 + `enabledEn`: "需要禁用的英文键-Array-非必填项"
 
 # 返回的事件和参数
-+ `init` -Function- 键盘创建和初始化
++ `init` -Function- 键盘创建和初始化 -**必须执行函数初始化**
 + `getVehicleValue` -Function- 返回输入的车牌
 + `saveValue` -Array- 返回输入的车牌
 + `keyboardShow` -Function- 键盘显示
