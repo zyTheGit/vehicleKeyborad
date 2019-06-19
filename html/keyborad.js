@@ -231,6 +231,11 @@ require("./keyborad.css");
 
       if (!this.writeBoxName) {
         if (!this.entryInputNa) throw new Error("entryInputNa或者writeBoxName字段是否为空");
+        let domEntryInp = document.querySelector(this.entryInputNa);
+        if (domEntryInp.tagName == 'INPUT' || domEntryInp.tagName == 'TEXTAREA') {
+          domEntryInp = null;
+          throw new Error("entryInputNa必须是一个盒子，不能是input或者textarea");
+        }
         this.__OwnBox__ = true;
         this._createInp();
       } else {
@@ -292,7 +297,6 @@ require("./keyborad.css");
             let txt = this.innerText,
               inputSpanAll = document.querySelectorAll(_this.entryInputNa + " span[data-index]");
             if (!inputSpanAll) throw new Error("entryInputNa是否为空");
-
             if (_this.hasClass(this, "keyborad_switch")) {
               //中文英文切换
               _this._switchEnOrCh();
@@ -386,7 +390,7 @@ require("./keyborad.css");
       let writeBoxName = document.querySelector(this.writeBoxName);
       (this.index > 0 && !this.saveValue[this.index]) && (this.index--) || ((this.index == 0) && (this.status = false, this._switchEnOrCh()));
       this.saveValue[this.index] = "";
-      this.__writeBoxIsInput__ && (writeBoxName.value = this.getVehicleValue()) || (writeBoxName.innerText = this.getVehicleValue());
+      this.__writeBoxIsInput__ && (writeBoxName.value = this.getVehicleValue(), writeBoxName.focus(), this.index = this.getVehicleValue().length) || (writeBoxName.innerText = this.getVehicleValue());
       this.backpaceEventFn && this.backpaceEventFn();
     }
 
@@ -520,14 +524,30 @@ require("./keyborad.css");
     //监听input的change事件
     _inputChangeEvent() {
       let _this = this;
+      this._inputFocusEvent();
       this.__writeBoxIsInput__ && document.querySelector(this.writeBoxName).addEventListener('keyup', function () {
-        _this.index = this.value.length - 1;
-        _this.saveValue = this.value.split("");
+        _this.saveValue = this.value.toLocaleUpperCase().split("");
+      })
+    }
+
+    //获取焦点事件
+    _inputFocusEvent() {
+      let _this = this;
+      this.__writeBoxIsInput__ && document.querySelector(this.writeBoxName).addEventListener('keydown', function () {
+        _this.index = _this._getPosition(this);
+      }) && document.querySelector(this.writeBoxName).addEventListener('focus', function () {
+        // if (this.setSelectionRange) {
+        //   this.setSelectionRange(0, this.value.length);
+        //   _this.index = _this._getPosition(this);
+        // }
       })
     }
 
     //判断writeBoxName是否为input
     _isInputFn() {
+      if (!this.writeBoxName) {
+        return false;
+      }
       let domWriteBoxName = document.querySelector(this.writeBoxName);
       (domWriteBoxName.tagName == 'INPUT' || domWriteBoxName.tagName == 'TEXTAREA') && (this.__writeBoxIsInput__ = true) || (this.__writeBoxIsInput__ = false);
     }
@@ -536,7 +556,7 @@ require("./keyborad.css");
     _getPosition(element) {
       let cursorPos = 0;
       if (document.selection) {//IE
-        var selectRange = document.selection.createRange();
+        let selectRange = document.selection.createRange();
         selectRange.moveStart('character', -element.value.length);
         cursorPos = selectRange.text.length;
       } else if (element.selectionStart || element.selectionStart == '0') {
