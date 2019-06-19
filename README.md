@@ -65,3 +65,4 @@
 + `showDoc` -Function- 显示使用文档
 + `initValue` -Function- 初始化键盘
 + `backpaceEventFn` -Function- 键盘上的backpack键的事件
++ `initComplateFn` -Function- 键盘创建完成的回调函数
