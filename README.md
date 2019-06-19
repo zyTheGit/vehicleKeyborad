@@ -41,7 +41,7 @@
    keyboard.init();
 ```
 
-# new Keyborad(Object) 传的参数
+# new Keyboard(Object) 传的参数
 + **`boxName`** 放置键盘盒子的名称-`String`-**必填项**
 + `entryInputNa`放置键盘输入框名称-`String`-非必填项（writeBoxName为空时，必填）,不能是input框，应该为一个盒子
 + `writeBoxName`存键盘操作的值的input或者盒子-`String`-非必填项（entryInputNa为空时，必填）
