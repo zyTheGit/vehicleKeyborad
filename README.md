@@ -66,3 +66,9 @@
 + `initValue` -Function- 初始化键盘
 + `backpaceEventFn` -Function- 键盘上的backpack键的事件
 + `initComplateFn` -Function- 键盘创建完成的回调函数
+
+# 版本更新
+* 使用input显示输入车牌时，可以使用自己的键盘输入
+* 可以使用import 导入
+
+
