@@ -5,9 +5,9 @@
 
 require("./keyborad.css");
 
-; (function (global, factory, plug) {
-  (typeof module == 'object' && typeof module.exports === 'object')? module.exports = factory.call(global):(global[plug] = factory.call(global));
-})((typeof window === 'undefined')?  this : window, function (window) {
+(function (global, factory, plug) {
+  global[plug] = factory.call(global);
+})((typeof window !== 'undefined')?  window : this, function (window) {
   'use strict';
   class Jquery {
     constructor(name = "") {
