@@ -6,7 +6,7 @@
 require("./keyborad.css");
 
 ; (function (global, factory, plug) {
-  (typeof module == 'object' && module.export === 'object') && (module.export = factory.call(global)) || (global[plug] = factory.call(global));
+  (typeof module == 'object' && module.exports === 'object') && (module.exports = factory.call(global)) || (global[plug] = factory.call(global));
 })((typeof window !== 'undefined') && window || this, function () {
   'use strict';
   class Jquery {
