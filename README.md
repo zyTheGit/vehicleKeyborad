@@ -11,7 +11,7 @@
 * 中英文键盘都可根据自己的需求定义
 
 # 使用方法
-+ 页面引用`dist/module-keyborad.js`即可
++ 页面引用`dist/keyboard.js`即可
 ```
  html
   # 外层的盒子名称都可自己定义

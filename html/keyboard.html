@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>键盘</title>
+</head>
+
+<body>
+  <!-- <input class="inp" > -->
+  <div class='inp'></div>
+  <div class="keyboard"></div>
+  <button onclick='a()'>重置</button>
+  <script src="../dist/keyboard.js"></script>
+  <!-- <script src="../dist/module-keyboard.js"></script> -->
+  <script>
+    var keyBorad = new Keyboard({
+      boxName: ".keyboard",
+      //writeBoxName: ".inp",
+      entryInputNa: ".inp",
+      pageVehicleSplit: "鄂j401",
+      pushCh: ['傻', '笨', '爷'],
+      pushEn: ['$'],
+      enabledEn: ['O','j'],
+      backpaceEventFn:function(){
+        console.log(1)
+		console.log(keyBorad.getVehicleValue());
+      }
+    });
+    keyBorad.init();
+    function a() {
+      keyBorad.initValue();
+    }
+  </script>
+</body>
+
+</html>

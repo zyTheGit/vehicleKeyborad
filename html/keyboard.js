@@ -3,12 +3,13 @@
  * version=2.0.0
  */
 
-require("./keyborad.css");
+require("./keyboard.css");
 
 (function (global, factory, plug) {
-  global[plug] = factory.call(global);
-})((typeof window !== 'undefined')?  window : this, function (window) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(global) : typeof define === 'function' && define.amd ? define(factory) : global[plug] = factory(global);
+})(typeof window !== 'undefined' ? window : this, function (window) {
   'use strict';
+  var document = window.document;
   class Jquery {
     constructor(name = "") {
       this.element = this.getEle(name);
@@ -387,10 +388,10 @@ require("./keyborad.css");
 
     //删除writeBoxName的操作
     _delWriteBoxName() {
-      let writeBoxName = document.querySelector(this.writeBoxName);
+      let writeBoxName = this.writeBoxName && document.querySelector(this.writeBoxName) || '';
       (this.index > 0 && !this.saveValue[this.index]) && (this.index--) || ((this.index == 0) && (this.status = false, this._switchEnOrCh()));
       this.saveValue[this.index] = "";
-      this.__writeBoxIsInput__ && (writeBoxName.value = this.getVehicleValue(), writeBoxName.focus(), this.index = this.getVehicleValue().length) || (writeBoxName.innerText = this.getVehicleValue());
+      writeBoxName && (this.__writeBoxIsInput__ && (writeBoxName.value = this.getVehicleValue(), writeBoxName.focus(), this.index = this.getVehicleValue().length) || (writeBoxName.innerText = this.getVehicleValue()));
       this.backpaceEventFn && this.backpaceEventFn();
     }
 

@@ -1,24 +1,27 @@
 const path = require('path');
 module.exports = {
   mode: "production",//production,development
-  entry: './html/keyborad.js',
+  entry: {
+	'keyboard':'./html/keyboard.js',
+	'keyboard.es6':'./html/keyboard.es6.js',
+  },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'keyboard.js',
-	 // globalObject: "this", //解决之前版本不能绑定在window的问题，这一版本不需要这个选项
+    path: path.resolve(__dirname, 'dest'),
+    filename: '[name].js',
+    libraryTarget: 'umd',
   },
   module: {
     rules: [{
       test: /\.css$/,
       use: [{
-          loader: 'style-loader'
-        },
-        {
-          loader: 'css-loader',
-          options: {
-            // modules: true
-          }
+        loader: 'style-loader'
+      },
+      {
+        loader: 'css-loader',
+        options: {
+          // modules: true
         }
+      }
       ]
     }]
   }
