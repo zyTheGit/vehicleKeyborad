@@ -11,7 +11,7 @@
 * 中英文键盘都可根据自己的需求定义
 
 # 使用方法
-+ 页面引用`dist/keyboard.js`即可
++ 页面引用`dest/keyboard.js`即可
 ```
  html
   # 外层的盒子名称都可自己定义
@@ -31,7 +31,7 @@
   or 
 2.使用内置创建的输入框
    var keyboard = new Keyboard({
-    boxName: ".keyborad",
+    boxName: ".keyboard",
     entryInputNa:".inp",
     pageVehicleSplit:"鄂j401",//页面传的车牌
     keyboardFn:function(){},//键盘点击回调事件
@@ -47,7 +47,7 @@
 + `writeBoxName`存键盘操作的值的input或者盒子-`String`-非必填项（entryInputNa为空时，必填）
 + `chArray`有自己的默认值，显示中文车牌-`Array`-非必填项
 + `enArray`有自己的默认值，显示字母和数字-`Array`-非必填项
-+ `keyboradShowRowNum`键盘排列几行，默认显示5行-`Int`-非必填项
++ `keyboardShowRowNum`键盘排列几行，默认显示5行-`Int`-非必填项
 + `pushCh`可以往原有的中文键盘中添加自己的中文-`Array`-非必填项
 + `pushEn`可以往原有的字母和数字键盘中添加自己的字母和数字-`Array`-非必填项
 + `inputLen`现实几个键盘输入框，默认是9个(其实显示出来是8位的车牌)，带中间一个点-`Int`-非必填项
@@ -75,5 +75,6 @@
 * 新增键盘重置方法
 * 使用input显示输入车牌时，可以使用自己的键盘输入
 * 优化代码，使用`与或`取代`if`
+* 如果需要引用es6 语法`import`导出请调用`dest/keyboard.es6.js`
 
 

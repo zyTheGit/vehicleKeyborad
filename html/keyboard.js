@@ -68,7 +68,7 @@ require("./keyboard.css");
       writeBoxName,
       chArray,
       enArray,
-      keyboradShowRowNum,
+      keyboardShowRowNum,
       pushCh,
       pushEn,
       inputLen,
@@ -172,7 +172,7 @@ require("./keyboard.css");
       //默认中文键盘往里面push
       this.pushEn = pushEn instanceof Array && pushEn || [];
       //显示多少行
-      this.line = keyboradShowRowNum || 5;
+      this.line = keyboardShowRowNum || 5;
       //保存键盘输入的值
       this.saveValue = [];
       //输入框的下标
@@ -211,7 +211,7 @@ require("./keyboard.css");
         writeBoxName: "自己显示键盘值的输入框,input或者其他的元素都可以支持-String-非必填项（entryInputNa为空时，必填）",
         chArray: "有自己的默认值，显示中文车牌-Array-非必填项",
         enArray: "有自己的默认值，显示字母和数字-Array-非必填项",
-        keyboradShowRowNum: "键盘排列几行，默认显示5行-Int-非必填项",
+        keyboardShowRowNum: "键盘排列几行，默认显示5行-Int-非必填项",
         pushCh: "可以往原有的中文键盘中添加自己的中文-Array-非必填项",
         pushEn: "可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
         inputLen: "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项",
