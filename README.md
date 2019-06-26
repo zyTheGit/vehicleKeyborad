@@ -55,6 +55,7 @@
 + `pageVehicleSplit`: "页面中传来的部分车牌，String-非必填项
 + `enabledCh`: "需要禁用的中文键-Array-非必填项",
 + `enabledEn`: "需要禁用的英文键-Array-非必填项"
++ `externalKeyboard`:是否启用内置键盘-Boolear-非必填项，`entryInputNa`存在时才起作用
 
 # 返回的事件和参数
 + `init` -Function- 键盘创建和初始化 -**必须执行函数初始化**
