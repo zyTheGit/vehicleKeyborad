@@ -13,7 +13,7 @@
   <div class='inp'></div>
   <div class="keyboard"></div>
   <button onclick='a()'>重置</button>
-  <script src="../dist/keyboard.js"></script>
+  <script src="../dest/keyboard.js"></script>
   <!-- <script src="../dist/module-keyboard.js"></script> -->
   <script>
     var keyBorad = new Keyboard({
@@ -23,10 +23,11 @@
       pageVehicleSplit: "鄂j401",
       pushCh: ['傻', '笨', '爷'],
       pushEn: ['$'],
-      enabledEn: ['O','j'],
-      backpaceEventFn:function(){
+      enabledEn: ['O', 'j'],
+      externalKeyboard: true,//是否启用自己的键盘
+      backpaceEventFn: function () {
         console.log(1)
-		console.log(keyBorad.getVehicleValue());
+        console.log(keyBorad.getVehicleValue());
       }
     });
     keyBorad.init();

@@ -70,6 +70,7 @@ export class Keyboard extends Jquery {
     pageVehicleSplit,
     enabledCh,
     enabledEn,
+    externalKeyboard,
     backpaceEventFn,
     keyboardFn,
     initComplateFn
@@ -190,6 +191,8 @@ export class Keyboard extends Jquery {
     this.enabledCh = enabledCh || [];
     //需要禁用的英文键
     this.enabledEn = enabledEn || [];
+    //开启外置键盘事件
+    this.externalKeyboard = externalKeyboard || false;
     //是否是我的盒子
     //当传入是entryInputNa的值的话__OwnBox__就等于true
     //当传入是writeBoxName的值的话__OwnBox__就等于false
@@ -211,6 +214,7 @@ export class Keyboard extends Jquery {
       pushEn: "可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
       inputLen: "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项",
       pageVehicleSplit: "页面中传来的部分车牌，String",
+      externalKeyboard: '是否开启外置键盘',
       enabledCh: "需要禁用的中文键-Array-非必填项",
       enabledEn: "需要禁用的英文键-Array-非必填项",
       backpaceEventFn: "backpace点击回调-Function-非必填项",
@@ -240,6 +244,7 @@ export class Keyboard extends Jquery {
     }
     this._getVehicleSplit();
     this._monitorInputClick();
+    this._keyboardExternalEvent();
   }
 
   _createKeyBorad() {
@@ -301,15 +306,7 @@ export class Keyboard extends Jquery {
             (!_this.writeBoxName) && _this._builtInDel(_this, inputSpanAll) || _this._delWriteBoxName();
           } else {
             //键盘输入操作
-            _this.saveValue[_this.index] = txt;
-            if (!_this.writeBoxName) {
-              _this._builtInEvalua(_this, inputSpanAll, txt);
-            } else {
-              let writeBoxName = document.querySelector(_this.writeBoxName);
-              (_this.index < _this.inputLen - _this.inpRedundantLen) && _this.index++;
-              (_this.index >= 1) && (_this.status = true) && _this._switchEnOrCh();
-              (_this.__writeBoxIsInput__) && (writeBoxName.value = _this.getVehicleValue(), writeBoxName.focus()) || (writeBoxName.innerText = _this.getVehicleValue());
-            }
+            _this._externalOrBuilt(txt, inputSpanAll);
           }
           _this.keyboardFn && _this.keyboardFn();
           _this._eventBubbling(e);
@@ -318,21 +315,37 @@ export class Keyboard extends Jquery {
     }
   }
 
+  //内置或者外置显示键盘框赋值
+  _externalOrBuilt(txt, inputSpanAll, isDisbaledMoveFocus) {
+    this.saveValue[this.index] = txt;
+    if (!this.writeBoxName) {
+      this._builtInEvalua(inputSpanAll, txt, isDisbaledMoveFocus);
+    } else {
+      let writeBoxName = document.querySelector(this.writeBoxName);
+      (this.index < this.inputLen - this.inpRedundantLen) && this.index++;
+      (this.index >= 1) && (this.status = true) && this._switchEnOrCh();
+      (this.__writeBoxIsInput__) && (writeBoxName.value = this.getVehicleValue(), writeBoxName.focus()) || (writeBoxName.innerText = this.getVehicleValue());
+    }
+  }
+
   //内置自己生成的input赋值操作
-  _builtInEvalua(_this, inputSpanAll, txt) {
-    let especialExis = _this.hasClass(
+  _builtInEvalua(inputSpanAll, txt, isDisbaledMoveFocus = true) {
+    //isDisbaledMoveFocus是否禁用点击自动到下一位
+    let especialExis = this.hasClass(
       document.querySelector(".keyboradInp span:last-child"),
       "keyborad_especial"
     );
-    inputSpanAll[_this.index].innerHTML = txt;
-    inputSpanAll.forEach(item => { _this.removeClass(item, "keyborad_active") });
-    if (especialExis && _this.index == 6) {
-      _this.addClass(inputSpanAll[_this.index], "keyborad_active");
+    inputSpanAll[this.index].innerHTML = txt;
+    inputSpanAll.forEach(item => { this.removeClass(item, "keyborad_active") });
+    if (especialExis && this.index == 6) {
+      this.addClass(inputSpanAll[this.index], "keyborad_active");
       return false;
     }
-    (_this.index < _this.inputLen - _this.inpRedundantLen) && _this.index++;
-    _this.addClass(inputSpanAll[_this.index], "keyborad_active");
-    (_this.index >= 1) && (_this.status = true, _this._switchEnOrCh())
+    if (isDisbaledMoveFocus) {
+      (this.index < this.inputLen - this.inpRedundantLen) && this.index++;
+      this.addClass(inputSpanAll[this.index], "keyborad_active");
+      (this.index >= 1) && (this.status = true, this._switchEnOrCh())
+    }
   }
 
   //内置自己生成的input删除操作
@@ -372,6 +385,28 @@ export class Keyboard extends Jquery {
         }, false);
       })(i);
     }
+  }
+
+  //输入框外置键盘点击事件
+  _keyboardExternalEvent() {
+    let _this = this,
+      inputSpanAll = document.querySelectorAll(this.entryInputNa + " span[data-index]");
+    if (!inputSpanAll) throw new Error("entryInputNa是否为空");
+    this.externalKeyboard && this.entryInputNa && inputSpanAll.forEach(item => {
+      item.setAttribute('contenteditable', true);
+      item.addEventListener('keydown', e => {
+        item.innerHTML = '';
+      })
+      item.addEventListener('keyup', e => {
+        _this._externalOrBuilt(item.innerHTML, inputSpanAll, false);
+      })
+    })
+  }
+
+  //判断按的是字母和数字
+  _regNumberOrLetter(key) {
+    let reg = /^[a-zA-Z0-9]/g;
+    reg.test(key);
   }
 
   //监听显示车牌的是input框时做的操作
