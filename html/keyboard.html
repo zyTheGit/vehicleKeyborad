@@ -13,6 +13,7 @@
   <div class='inp'></div>
   <div class="keyboard"></div>
   <button onclick='a()'>重置</button>
+  <button onclick='show()'>显示</button>
   <script src="../dest/keyboard.js"></script>
   <!-- <script src="../dist/module-keyboard.js"></script> -->
   <script>
@@ -33,6 +34,14 @@
     keyBorad.init();
     function a() {
       keyBorad.initValue();
+    }
+
+    document.onclick=function(){
+      keyBorad.keyboardHide();
+    }
+    function show(event){
+      keyBorad.keyboardShow();
+      window.event? window.event.cancelBubble = true : e.stopPropagation();
     }
   </script>
 </body>
