@@ -652,4 +652,4 @@ require("./keyboard.css");
     }
 
     return Keyboard;
-}, 'Keyboard ');
+}, 'Keyboard');
