@@ -7,7 +7,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dest'),
-    filename:'[name].js',
+    filename: '[name].js',
     library: {
       root: "Keyboard",
       amd: "Keyboard",
@@ -28,6 +28,8 @@ module.exports = {
         }
       }
       ]
-    }]
+    },
+    { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+    ]
   }
 };
