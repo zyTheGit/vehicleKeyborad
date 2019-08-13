@@ -21,7 +21,6 @@ require("./keyboard.css");
                 item.innerHTML = child;
             });
         }
-
         forEle(callback) {
             let arrayEl = this.element,
                 array = [];

@@ -247,6 +247,7 @@ export class Keyboard extends Jquery {
     this._keyboardExternalEvent();
   }
 
+  //创建键盘
   _createKeyBorad() {
     if (!this.boxName) throw new Error("搁置键盘盒子的名称字段必要的'boxName'");
     this._loopSpan();
