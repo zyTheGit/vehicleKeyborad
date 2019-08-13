@@ -22,5 +22,8 @@
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
     "style-loader": "^0.23.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
   }
 }

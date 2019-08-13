@@ -337,7 +337,7 @@ require("./keyboard.css");
                 "keyborad_especial"
             );
             inputSpanAll[this.index].innerHTML = txt;
-            inputSpanAll.forEach(item => { this.removeClass(item, "keyborad_active") });
+            Array.from(inputSpanAll).forEach(item => { this.removeClass(item, "keyborad_active") });
             if (especialExis && this.index == 6) {
                 this.addClass(inputSpanAll[this.index], "keyborad_active");
                 return false;
@@ -352,7 +352,7 @@ require("./keyboard.css");
         //内置自己生成的input删除操作
         _builtInDel(_this, inputSpanAll) {
             inputSpanAll[_this.index].innerHTML = "";
-            inputSpanAll.forEach(item => { _this.removeClass(item, "keyborad_active") });
+            Array.from(inputSpanAll).forEach(item => { _this.removeClass(item, "keyborad_active") });
             _this.saveValue[_this.index] = "";
             if (_this.index > 0 && !_this.saveValue[_this.index]) {
                 _this.index--;
@@ -379,7 +379,7 @@ require("./keyboard.css");
                         (keyboradShow == "none") && _this.keyboradShow();
                         (especialExis && dataIndex == 7) && (this.innerHTML = "", _this.removeClass(document.querySelector(".keyboradInp span:last-child"), "keyborad_especial"));
                         (dataIndex == 0) && (_this.status = false, _this._switchEnOrCh());
-                        inputSpanAll.forEach(item => { _this.removeClass(item, "keyborad_active") });
+                        Array.from(inputSpanAll).forEach(item => { _this.removeClass(item, "keyborad_active") });
                         _this.addClass(inputSpanAll[dataIndex], "keyborad_active");
                         _this.index = dataIndex;
                         _this._eventBubbling(e);
@@ -393,7 +393,7 @@ require("./keyboard.css");
             let _this = this,
                 inputSpanAll = document.querySelectorAll(this.entryInputNa + " span[data-index]");
             if (!inputSpanAll) throw new Error("entryInputNa是否为空");
-            this.externalKeyboard && this.entryInputNa && inputSpanAll.forEach(item => {
+            this.externalKeyboard && this.entryInputNa && Array.from(inputSpanAll).forEach(item => {
                 item.setAttribute('contenteditable', true);
                 item.addEventListener('keydown', e => {
                     item.innerHTML = '';
@@ -605,7 +605,7 @@ require("./keyboard.css");
                 this.index = 0;
                 this.status = false;
                 this._switchEnOrCh();
-                inputSpanAll.forEach((item, index) => {
+                Array.from(inputSpanAll).forEach((item, index) => {
                     inputSpanAll[index].innerHTML = "";
                     this.removeClass(item, "keyborad_active");
                 });

@@ -2,8 +2,8 @@ const path = require('path');
 module.exports = {
   mode: "production",//production,development
   entry: {
-    'keyboard': './html/keyboard.js',
-    'keyboard.es6': './html/keyboard.es6.js',
+    'keyboard': ['babel-polyfill', './html/keyboard.js'],
+    'keyboard.es6': ['babel-polyfill', './html/keyboard.es6.js'],
   },
   output: {
     path: path.resolve(__dirname, 'dest'),
