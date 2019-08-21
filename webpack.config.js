@@ -1,6 +1,6 @@
 const path = require('path');
 module.exports = {
-  mode: "production",//production,development
+  // mode: "development",//production,development
   entry: {
     'keyboard': ['babel-polyfill', './html/keyboard.js'],
     'keyboard.es6': ['babel-polyfill', './html/keyboard.es6.js'],
@@ -29,7 +29,16 @@ module.exports = {
       }
       ]
     },
-    { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+    {
+      test: /\.(js)$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      }
+    }
     ]
   }
 };

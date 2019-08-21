@@ -4,7 +4,9 @@
   "description": "普通车牌和新能源车牌",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "webpack --mode development --watch",
+    "start": "webpack --mode development",
+    "deploy": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,9 @@
     "@babel/preset-env": "^7.5.5",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
-    "style-loader": "^0.23.1"
+    "style-loader": "^0.23.1",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0"
