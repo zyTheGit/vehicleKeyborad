@@ -34,7 +34,7 @@ module.exports = {
         options: {
           plugins: [
             autoprefixer({
-              browsers: [
+              Browserslist: [
                 "> 1%",
                 "last 2 version",
                 "not ie <= 8"
@@ -45,7 +45,16 @@ module.exports = {
       }
       ]
     },
-    { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+    {
+      test: /\.(js)$/,
+      exclude: /(node_modules)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      }
+    }
     ]
   },
   optimization: {
@@ -54,8 +63,16 @@ module.exports = {
         // sourceMap: true,
         include: /\/includes/,
         uglifyOptions: {
-          ie8: true
-        }
+          ie8: true,
+          output: {
+            comments: false,
+            beautify: false,
+          },
+          compress: {
+            warnings: false
+          }
+        },
+         cache: true,
       })
     ]
   }, plugins: [
