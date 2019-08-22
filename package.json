@@ -4,7 +4,8 @@
   "description": "普通车牌和新能源车牌",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack --mode development",
+    "pro": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,15 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
+    "babel-polyfill": "^6.26.0",
     "css-loader": "^2.1.1",
-    "style-loader": "^0.23.1"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.26.0"
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7",
+    "webpack-parallel-uglify-plugin": "^1.1.2"
   }
 }

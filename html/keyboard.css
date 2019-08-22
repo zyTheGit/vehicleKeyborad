@@ -1,21 +1,25 @@
 @charset 'utf-8';
 
+html {
+  font-size: 62.5%;
+}
+
 .keyboradZy {
-  max-width: 785px;
+  max-width: 78.5rem;
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  -webkit-transform:translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
 }
 
 .keyboradZy .ch,
 .keyboradZy .en {
-  padding: 2px 3px;
+  padding: .2rem .3rem;
   box-sizing: border-box;
   background-color: #ddd;
-  border-radius: 3px;
+  border-radius: .3rem;
 }
 
 .keyboradZy .ch>div,
@@ -25,6 +29,7 @@
   display: -webkit-flex;
   justify-content: center;
   flex-wrap: nowrap;
+  font-size: 1.4rem;
 }
 
 .keyboradZy .ch>div>span,
@@ -32,17 +37,17 @@
   text-align: center;
   flex: auto;
   -webkit-flex: auto;
-  padding: 10px 5px;
-  margin: 5px 3px;
+  padding: 1rem .5rem;
+  margin: .5rem .3rem;
   transition: .3s;
-  box-shadow: 1px 1px 1px 1px #666;
-  border: 1px solid #ddd;
+  box-shadow: .1rem .1rem .1rem .1rem #666;
+  border: .1rem solid #ddd;
 }
 
 .keyboradZy .ch>div>span,
 .keyboradZy .en>div>span,
 .keyboradInp span {
-  border-radius: 5px;
+  border-radius: .5rem;
   background-color: #fff;
   cursor: pointer;
   user-select: none;
@@ -52,7 +57,7 @@
 .keyboradZy .en>div>span:active {
   background-color: #ddc;
   box-shadow: 0 0 0 0 #fff;
-  border-radius: 5px;
+  border-radius: .5rem;
   outline: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   appearance: none;
@@ -63,7 +68,7 @@
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABZ0lEQVRYR+2W200DMRRETzqACoAKgAoIHdABoQKgA+ggVAAdQAfQAUkH0AF0gEbaKxnHr2tttD/rz6w1czx3vNkFE6/FxP7MAHMCrQksgVfgYKTS/gCXwKYFYAU8A1vgbSQAaX4AqxpAaK4URD7GkrnWsgSwL3MZVwH2aV4FaDU/Ay6Ap8RMVNZb4DEzr2wCrebStb0vwE1gJPN34AQ4zvQmCXA1XDW1vbVwMr8GDCI0l8amNQHFKepvh7lphxDS0clL5jsdUEyfwC8ggZ6rZhASPy+c3KD/jUCx6YfTYZYS8yyLXfBacSdSWjsd6IWIZ34XdSJ3kGQJQwi9p21TTiRXuLiYTQnYJoM4sj+Lwix02odM4Qzi0HMNeyAEnCtt6Vn1VexJwlPY5C0ozVikGsf90O4eM1cH4s29t6MGWh1BKCCI9XC9asKe50p1XfsgCQXV+rE+yb5spB4Az+ma984AcwKTJ/AHQABhIXkmPiIAAAAASUVORK5CYII=);
   background-repeat: no-repeat;
   background-position: center;
-  padding: 10px !important;
+  padding: 1rem !important;
 }
 
 .keyboradZy div>span.enableBtn {
@@ -73,19 +78,18 @@
 
 .keyboradInp>span {
   display: block;
-  width: 50px;
+  width: 5rem;
   text-align: center;
-  height: 55px;
-  line-height: 55px;
-  margin: 0 2px;
-  border: 2px solid #cdc496;
+  line-height: 5rem;
+  margin: 0 .2rem;
+  border: .2rem solid #cdc496;
 }
 
 .keyboradInp .keyborad_interval {
-  width: 5px;
+  width: .5rem;
   box-shadow: none;
   border: none;
-  font-size: 16px;
+  font-size: 1.6rem;
   font-weight: 800;
 }
 
@@ -101,5 +105,5 @@
 }
 
 .keyboradInp .keyborad_active {
-  border: 2px solid #d1824d;
+  border: .2rem solid #d1824d;
 }
