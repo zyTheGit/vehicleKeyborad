@@ -3,7 +3,6 @@
 普通车牌和新能源车牌
 
 ![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/tree/master/img/ch.jpg)
-
 ![EN键盘](https://github.com/zyTheGit/vehicleKeyborad/tree/master/img/en.jpg)
 
 # 适用范围
