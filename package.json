@@ -1,16 +1,20 @@
 {
-  "name": "keyboard",
-  "version": "1.0.0",
-  "description": "普通车牌和新能源车牌",
-  "main": "webpack.config.js",
+  "name": "zy-vehicle-keyboard",
+  "version": "1.0.2",
+  "description": "parking vehicle keyboard",
+  "main": "lib/index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
-    "pro": "webpack --mode production"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zyTheGit/vehicleKeyborad.git"
   },
+  "keywords": [
+    "keyboard"
+  ],
   "author": "zy",
   "license": "ISC",
   "bugs": {
@@ -18,17 +22,15 @@
   },
   "homepage": "https://github.com/zyTheGit/vehicleKeyborad#readme",
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "autoprefixer": "^9.6.1",
-    "babel-loader": "^8.0.6",
-    "babel-polyfill": "^6.26.0",
-    "css-loader": "^2.1.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "autoprefixer": "^9.8.0",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^3.5.3",
     "postcss-loader": "^3.0.0",
-    "style-loader": "^0.23.1",
+    "style-loader": "^1.2.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7",
-    "webpack-parallel-uglify-plugin": "^1.1.2"
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   }
 }

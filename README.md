@@ -2,9 +2,9 @@
 
 普通车牌和新能源车牌
 
-![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/ch.jpg)
+![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/tree/master/img/ch.jpg)
 
-![EN键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/en.jpg)
+![EN键盘](https://github.com/zyTheGit/vehicleKeyborad/tree/master/img/en.jpg)
 
 # 适用范围
 
@@ -13,8 +13,9 @@
 
 # 使用方法
 
-- 页面引用`dest/keyboard.js`即可
-
+- 页面引用`html/keyboard.js`即可或者
+`import Keyboard from 'zy-vehicle-keyboard'`
+==在执行初始化的时候如果是使用vue的话，需要在mounted下执行初始化操作==
 ```
  html
   # 外层的盒子名称都可自己定义
@@ -41,6 +42,7 @@
     backpaceEventFn:function(){},//键盘backpace点击回调事件
    });
 
+    # 在执行初始化的时候如果是使用vue的话，需要在mounted下执行初始化操作
    keyboard.init();
 ```
 
