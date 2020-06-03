@@ -15,7 +15,7 @@
 
 - 页面引用`html/keyboard.js`即可或者
 `import Keyboard from 'zy-vehicle-keyboard'`
-==在执行初始化的时候如果是使用vue的话，需要在mounted下执行初始化操作==
+** 在执行初始化的时候如果是使用vue的话，需要在mounted下执行初始化操作 **
 ```
  html
   # 外层的盒子名称都可自己定义
@@ -57,7 +57,7 @@
 - `pushCh`可以往原有的中文键盘中添加自己的中文-`Array`-非必填项
 - `pushEn`可以往原有的字母和数字键盘中添加自己的字母和数字-`Array`-非必填项
 - `inputLen`现实几个键盘输入框，默认是 9 个(其实显示出来是 8 位的车牌)，带中间一个点-`Int`-非必填项
-- `keyboardFn`点击键盘的回调防暑，-Function-非必填项
+- `keyboardFn`点击键盘的回调函数，没有返回值，只有回调，-Function-非必填项
 - `pageVehicleSplit`: "页面中传来的部分车牌，String-非必填项
 - `enabledCh`: "需要禁用的中文键-Array-非必填项",
 - `enabledEn`: "需要禁用的英文键-Array-非必填项"
