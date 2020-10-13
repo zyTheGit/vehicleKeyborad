@@ -1,8 +1,9 @@
 {
   "name": "zy-vehicle-keyboard",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "parking vehicle keyboard",
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
+  "files": ["/lib"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",

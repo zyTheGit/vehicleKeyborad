@@ -15,7 +15,8 @@
 
 - 页面引用`html/keyboard.js`即可或者
 `import Keyboard from 'zy-vehicle-keyboard'`
-** 在执行初始化的时候如果是使用vue的话，需要在mounted下执行初始化操作 **
+>> 在执行初始化的时候如果是使用vue的话，需要在*mounted*下执行初始化操作
+
 ```
  html
   # 外层的盒子名称都可自己定义
@@ -87,4 +88,6 @@
 - 如果需要引用 es6 语法`import`导出请调用`dest/keyboard.es6.js`
 - 兼容低版本设备 兼容到 ie11
 - `css` 样式添加浏览器兼容前缀
+- 优化键盘点击被隐藏掉的问题
+- 优化编译之后的大小
 

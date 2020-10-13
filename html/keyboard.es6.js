@@ -476,6 +476,7 @@ class Keyboard extends Jquery {
           thatKeyboardEnable: this.enabledEn
       }));
       this.append(keyboradZy);
+      keyboradZy.onclick = (e) => this._eventBubbling(e);
       this.initComplateFn && this.initComplateFn();
   }
 
