@@ -1,6 +1,6 @@
 {
   "name": "zy-vehicle-keyboard",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "parking vehicle keyboard",
   "main": "./lib/index.js",
   "files": ["/lib"],
