@@ -1,6 +1,6 @@
 /**
  * author=zy
- * version=2.0.0
+ * version=1.0.4
  */
 
 require("./keyboard.css");
@@ -77,7 +77,7 @@ class Keyboard extends Jquery {
   }) {
       super(boxName);
       //版本号
-      this.version = "2.0.0";
+      this.version = "1.0.4";
       //外层盒子名称,显示键盘
       this.boxName = boxName || "";
       //输入键盘名称
