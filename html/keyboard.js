@@ -1,6 +1,6 @@
 /**
  * author=zy
- * version=2.0.0
+ * version=1.0.4
  */
 
 require("./keyboard.css");
@@ -78,7 +78,7 @@ require("./keyboard.css");
         }) {
             super(boxName);
             //版本号
-            this.version = "2.0.0";
+            this.version = "1.0.4";
             //外层盒子名称,显示键盘
             this.boxName = boxName || "";
             //输入键盘名称
@@ -203,6 +203,10 @@ require("./keyboard.css");
             this.__keyboardDom__ = null;
             //writeBoxName是否为input
             this.__writeBoxIsInput__ = false;
+            //外层盒子的dom
+            this.__keyboradZyDom__ = null;
+            //键盘操作盒子
+            this.__writeBoxNameDom__ = null;
             //使用详细
             this.detail = {
                 boxName: "放置键盘盒子的名称-String-必填项",
@@ -228,9 +232,9 @@ require("./keyboard.css");
             this.enArray = this.enArray.concat(this.pushEn, ["中/EN", "删除"]);
             this._createKeyBorad();
             //如果writeBoxName和entryInputNa全部传了参数，已用户自己的输入框为主
-            (!!this.writeBoxName && !!this.entryInputNa) && (this.entryInputNa = "", this.__OwnBox__ = false)
+            (!!this.__writeBoxNameDom__ && !!this.entryInputNa) && (this.entryInputNa = "", this.__OwnBox__ = false)
 
-            if (!this.writeBoxName) {
+            if (!this.__writeBoxNameDom__) {
                 if (!this.entryInputNa) throw new Error("entryInputNa或者writeBoxName字段是否为空");
                 let domEntryInp = document.querySelector(this.entryInputNa);
                 if (domEntryInp.tagName == 'INPUT' || domEntryInp.tagName == 'TEXTAREA') {
@@ -304,7 +308,7 @@ require("./keyboard.css");
                             _this._switchEnOrCh();
                         } else if (_this.hasClass(this, "keyborad_del")) {
                             //删除操作
-                            (!_this.writeBoxName) && _this._builtInDel(_this, inputSpanAll) || _this._delWriteBoxName();
+                            (!_this.__writeBoxNameDom__) && _this._builtInDel(_this, inputSpanAll) || _this._delWriteBoxName();
                         } else {
                             //键盘输入操作
                             _this._externalOrBuilt(txt, inputSpanAll);
@@ -319,13 +323,12 @@ require("./keyboard.css");
         //内置或者外置显示键盘框赋值
         _externalOrBuilt(txt, inputSpanAll, isDisbaledMoveFocus) {
             this.saveValue[this.index] = txt;
-            if (!this.writeBoxName) {
+            if (!this.__writeBoxNameDom__) {
                 this._builtInEvalua(inputSpanAll, txt, isDisbaledMoveFocus);
             } else {
-                let writeBoxName = document.querySelector(this.writeBoxName);
                 (this.index < this.inputLen - this.inpRedundantLen) && this.index++;
                 (this.index >= 1) && (this.status = true) && this._switchEnOrCh();
-                (this.__writeBoxIsInput__) && (writeBoxName.value = this.getVehicleValue(), writeBoxName.focus()) || (writeBoxName.innerText = this.getVehicleValue());
+                (this.__writeBoxIsInput__) && (this.__writeBoxNameDom__.value = this.getVehicleValue(), this.__writeBoxNameDom__.focus()) || (this.__writeBoxNameDom__.innerText = this.getVehicleValue());
             }
         }
 
@@ -375,7 +378,7 @@ require("./keyboard.css");
                         let inputSpanAll = document.querySelectorAll(_this.entryInputNa + " span[data-index]");
                         let especialExis = _this.hasClass(document.querySelector(".keyboradInp span:last-child"), "keyborad_especial");
                         let dataIndex = this.getAttribute("data-index");
-                        let keyboradShow = document.querySelector(".keyboradZy").style.display;
+                        let keyboradShow = _this.__keyboradZyDom__.style.display;
                         (keyboradShow == "none") && _this.keyboradShow();
                         (especialExis && dataIndex == 7) && (this.innerHTML = "", _this.removeClass(document.querySelector(".keyboradInp span:last-child"), "keyborad_especial"));
                         (dataIndex == 0) && (_this.status = false, _this._switchEnOrCh());
@@ -413,16 +416,14 @@ require("./keyboard.css");
         //监听显示车牌的是input框时做的操作
         _monitorInputClick() {
             let _this = this;
-            if (!this.writeBoxName) return;
-            document.querySelector(this.writeBoxName).addEventListener('keydown', e => { (e.keyCode === 8) && _this._delWriteBoxName() });
+            !!this.__writeBoxNameDom__ && this.__writeBoxNameDom__.addEventListener('keydown', e => { (e.keyCode === 8) && _this._delWriteBoxName() });
         }
 
         //删除writeBoxName的操作
         _delWriteBoxName() {
-            let writeBoxName = this.writeBoxName && document.querySelector(this.writeBoxName) || '';
             (this.index > 0 && !this.saveValue[this.index]) && (this.index--) || ((this.index == 0) && (this.status = false, this._switchEnOrCh()));
             this.saveValue[this.index] = "";
-            writeBoxName && (this.__writeBoxIsInput__ && (writeBoxName.value = this.getVehicleValue(), writeBoxName.focus(), this.index = this.getVehicleValue().length) || (writeBoxName.innerText = this.getVehicleValue()));
+            !!this.__writeBoxNameDom__ && (this.__writeBoxIsInput__ && (this.__writeBoxNameDom__.value = this.getVehicleValue(), this.__writeBoxNameDom__.focus(), this.index = this.getVehicleValue().length) || (this.__writeBoxNameDom__.innerText = this.getVehicleValue()));
             this.backpaceEventFn && this.backpaceEventFn();
         }
 
@@ -441,14 +442,13 @@ require("./keyboard.css");
         //外置输入框点击显示键盘
         _builtInShow() {
             let _this = this;
-            let writeBoxName = document.querySelector(_this.writeBoxName);
-            if (!writeBoxName) return false;
+            if (!this.__writeBoxNameDom__) return;
             this._getVehicleSplit();
-            writeBoxName.addEventListener("click", function (e) {
+            this.__writeBoxNameDom__.addEventListener("click", function (e) {
                 _this.keyboradShow();
                 _this._eventBubbling(e);
             });
-            document.querySelector(".keyboradZy").addEventListener("click", function (e) {
+            this.__keyboradZyDom__.addEventListener("click", function (e) {
                 _this.keyboradShow();
                 _this._eventBubbling(e);
             });
@@ -477,7 +477,9 @@ require("./keyboard.css");
                 thatKeyboardEnable: this.enabledEn
             }));
             this.append(keyboradZy);
-            keyboradZy.onclick = (e) => this._eventBubbling(e);
+            this.__keyboradZyDom__ = keyboradZy;
+            this.__keyboradZyDom__.onclick = (e) => this._eventBubbling(e);
+            this.__writeBoxNameDom__ = !!this.writeBoxName && document.querySelector(this.writeBoxName) || null;
             this.initComplateFn && this.initComplateFn();
         }
 
@@ -542,9 +544,9 @@ require("./keyboard.css");
                 })
             } else {
                 this.index = this.saveValue.length;
-                document.querySelector(_this.writeBoxName).focus();
-                document.querySelector(_this.writeBoxName).innerHTML = this.pageVehicleSplit;
-                document.querySelector(_this.writeBoxName).value = this.pageVehicleSplit;
+                this.__writeBoxNameDom__.focus();
+                this.__writeBoxNameDom__.innerHTML = this.pageVehicleSplit;
+                this.__writeBoxNameDom__.value = this.pageVehicleSplit;
             }
         }
 
@@ -558,7 +560,7 @@ require("./keyboard.css");
         _inputChangeEvent() {
             let _this = this;
             this._inputFocusEvent();
-            this.__writeBoxIsInput__ && document.querySelector(this.writeBoxName).addEventListener('keyup', function () {
+            this.__writeBoxIsInput__ && this.__writeBoxNameDom__.addEventListener('keyup', function () {
                 _this.saveValue = this.value.toLocaleUpperCase().split("");
             })
         }
@@ -566,23 +568,15 @@ require("./keyboard.css");
         //获取焦点事件
         _inputFocusEvent() {
             let _this = this;
-            this.__writeBoxIsInput__ && document.querySelector(this.writeBoxName).addEventListener('keydown', function () {
+            !!this.__writeBoxNameDom__ && this.__writeBoxIsInput__ && this.__writeBoxNameDom__.addEventListener('keydown', function () {
                 _this.index = _this._getPosition(this);
-            }) && document.querySelector(this.writeBoxName).addEventListener('focus', function () {
-                // if (this.setSelectionRange) {
-                //   this.setSelectionRange(0, this.value.length);
-                //   _this.index = _this._getPosition(this);
-                // }
-            })
+            }) && this.__writeBoxNameDom__.addEventListener('focus', function () { })
         }
 
         //判断writeBoxName是否为input
         _isInputFn() {
-            if (!this.writeBoxName) {
-                return false;
-            }
-            let domWriteBoxName = document.querySelector(this.writeBoxName);
-            (domWriteBoxName.tagName == 'INPUT' || domWriteBoxName.tagName == 'TEXTAREA') && (this.__writeBoxIsInput__ = true) || (this.__writeBoxIsInput__ = false);
+            if (!this.__writeBoxNameDom__) return;
+            (this.__writeBoxNameDom__.tagName == 'INPUT' || this.__writeBoxNameDom__.tagName == 'TEXTAREA') && (this.__writeBoxIsInput__ = true) || (this.__writeBoxIsInput__ = false);
         }
 
         //获取input光标位置
@@ -629,20 +623,20 @@ require("./keyboard.css");
 
         //键盘显示
         keyboradShow() {
-            document.querySelector(".keyboradZy").style.display = "block";
+            this.__keyboradZyDom__.style.display = "block";
         }
         //键盘显示
         keyboradHide() {
-            document.querySelector(".keyboradZy").style.display = "none";
+            this.__keyboradZyDom__.style.display = "none";
         }
 
         //键盘显示
         keyboardShow() {
-            document.querySelector(".keyboradZy").style.display = "block";
+            this.__keyboradZyDom__.style.display = "block";
         }
         //键盘显示
         keyboardHide() {
-            document.querySelector(".keyboradZy").style.display = "none";
+            this.__keyboradZyDom__.style.display = "none";
         }
 
         //使用文档

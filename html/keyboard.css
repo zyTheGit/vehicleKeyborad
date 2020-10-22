@@ -12,6 +12,9 @@ html {
   left: 50%;
   transform: translate(-50%, 0);
   -webkit-transform: translate(-50%, 0);
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+  line-height: 1;
+  font-size: 100%;
 }
 
 .keyboradZy .ch,
@@ -37,11 +40,12 @@ html {
   text-align: center;
   flex: auto;
   -webkit-flex: auto;
-  padding: 1rem .5rem;
-  margin: .5rem .3rem;
+  padding: 1rem .4rem;
+  margin: .4rem .3rem;
   transition: .3s;
-  box-shadow: .1rem .1rem .1rem .1rem #666;
+  box-shadow: 0.08rem 0.1rem 0.2rem 0.02rem #999;
   border: .1rem solid #ddd;
+  overflow: hidden;
 }
 
 .keyboradZy .ch>div>span,
@@ -51,6 +55,7 @@ html {
   background-color: #fff;
   cursor: pointer;
   user-select: none;
+  flex: 1;
 }
 
 .keyboradZy .ch>div>span:active,
@@ -80,9 +85,10 @@ html {
   display: block;
   width: 5rem;
   text-align: center;
-  line-height: 5rem;
+  line-height: 40px;
   margin: 0 .2rem;
   border: .2rem solid #cdc496;
+  flex: inherit;
 }
 
 .keyboradInp .keyborad_interval {
@@ -106,4 +112,8 @@ html {
 
 .keyboradInp .keyborad_active {
   border: .2rem solid #d1824d;
+}
+
+.keyboradZy .keyborad_switch {
+  font-size: .12rem;
 }
