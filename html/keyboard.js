@@ -1,6 +1,6 @@
 /**
  * author=zy
- * version=1.0.5
+ * version=1.0.6
  */
 
 require("./keyboard.css");
@@ -78,7 +78,7 @@ require("./keyboard.css");
         }) {
             super(boxName);
             //版本号
-            this.version = "1.0.5";
+            this.version = "1.0.6";
             //外层盒子名称,显示键盘
             this.boxName = boxName || "";
             //输入键盘名称

@@ -79,7 +79,7 @@ var keyboard = new Keyboard({
 - `initComplateFn` -Function- 键盘创建完成的回调函数
 
 # 版本更新
-* **1.0.4**
+* **1.0.5**
   - 新增键盘返回键事件
   - 可以使用 require或者import 导入的方式
   - 新增自定义键盘
@@ -91,7 +91,7 @@ var keyboard = new Keyboard({
   - 优化键盘点击被隐藏掉的问题
   - 优化编译之后的大小
   
-* **1.0.5**
+* **1.0.6**
   - 优化键盘切换中英文高度不一致
   - 优化按钮使用体验
 
