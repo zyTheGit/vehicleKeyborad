@@ -13,6 +13,11 @@
 
 - 中英文键盘都可根据自己的需求定义
 
+# 安装
+```shell
+npm install zy-vehicle-keyboard
+```
+
 # 使用方法
 
 - 页面引用`html/keyboard.js`即可或者
