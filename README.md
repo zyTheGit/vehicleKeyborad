@@ -54,7 +54,7 @@ var keyboard = new Keyboard({
    keyboard.init();
 ```
 
-# new Keyboard(Object) 传的参数
+# new Keyboard(params:object) 传的参数
 
 - **`boxName`** 放置键盘盒子的名称-`String`-**必填项**
 - `entryInputNa`放置键盘输入框名称-`String`-非必填项（writeBoxName 为空时，必填）,不能是 input 框，应该为一个盒子
