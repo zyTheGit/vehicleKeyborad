@@ -69,7 +69,7 @@ var keyboard = new Keyboard({
 - `pageVehicleSplit`: "页面中传来的部分车牌，String-非必填项
 - `enabledCh`: "需要禁用的中文键-Array-非必填项",
 - `enabledEn`: "需要禁用的英文键-Array-非必填项"
-- `externalKeyboard`:是否启用内置键盘-Boolear-非必填项，`entryInputNa`存在时才起作用
+- `externalKeyboard`:是否启用内置键盘-Boolean-非必填项，`entryInputNa`存在时才起作用,(开启原生自带键盘输入的方式)
 
 # 返回的事件和参数
 
