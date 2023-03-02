@@ -17,7 +17,7 @@
   <!-- <script src="./keyboard.js"></script> -->
   <script src="../lib/index.js"></script>
   <script>
-    var keyBorad = new Keyboard({
+    var keyborad = new Keyboard({
       boxName: ".keyboard",
       // writeBoxName: ".inp",
       entryInputNa: ".inp",
@@ -28,19 +28,19 @@
       externalKeyboard: true,//是否启用自己的键盘
       backpaceEventFn: function () {
         console.log("backpaceEventFn=>删除事件的回调")
-        console.log(keyBorad.getVehicleValue());
+        console.log(keyborad.getVehicleValue());
       }
     });
-    keyBorad.init();
+    keyborad.init();
     function reset() {
-      keyBorad.initValue();
+      keyborad.initValue();
     }
 
     document.onclick = function () {
-      keyBorad.keyboardHide();
+      keyborad.keyboardHide();
     }
     function show(event) {
-      keyBorad.keyboardShow();
+      keyborad.keyboardShow();
       window.event ? window.event.cancelBubble = true : e.stopPropagation();
     }
   </script>
