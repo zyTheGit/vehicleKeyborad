@@ -14,34 +14,37 @@
   <div class="keyboard"></div>
   <button onclick='reset()'>重置</button>
   <button onclick='show()'>显示</button>
+  <button onclick='hide()'>隐藏</button>
   <!-- <script src="./keyboard.js"></script> -->
   <script src="../lib/index.js"></script>
   <script>
-    var keyBorad = new Keyboard({
+    const keyboard = new Keyboard({
       boxName: ".keyboard",
       // writeBoxName: ".inp",
       entryInputNa: ".inp",
       pageVehicleSplit: "鄂j401",
       pushCh: ['中', '国', '加', "油"],
       pushEn: ['1'],
-      enabledEn: ['O', 'j'],
+      enabledEn: ['O', 'j', '1'],
+      enabledCh: ['油'],
       externalKeyboard: true,//是否启用自己的键盘
-      backpaceEventFn: function () {
-        console.log("backpaceEventFn=>删除事件的回调")
-        console.log(keyBorad.getVehicleValue());
+      backpaceFn: function () {
+        console.log("backpaceFn=>删除事件的回调")
+        console.log(keyboard.getVehicleValue());
       }
     });
-    keyBorad.init();
+    keyboard.init();
+
     function reset() {
-      keyBorad.initValue();
+      keyboard.initValue();
+    }
+    function hide() {
+      keyboard.keyboardHide();
     }
 
-    document.onclick = function () {
-      keyBorad.keyboardHide();
-    }
     function show(event) {
-      keyBorad.keyboardShow();
-      window.event ? window.event.cancelBubble = true : e.stopPropagation();
+      keyboard.keyboardShow();
+      // window.event ? window.event.cancelBubble = true : e.stopPropagation();
     }
   </script>
 </body>

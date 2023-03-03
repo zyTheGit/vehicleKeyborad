@@ -1,15 +1,14 @@
 {
-  "name": "zy-vehicle-keyboard",
-  "version": "1.0.5",
+  "name": "vehicle-keyboard-js",
+  "version": "1.0.13",
   "description": "parking vehicle keyboard",
   "main": "./lib/index.js",
   "files": [
     "/lib"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack --mode development",
-    "build": "webpack --mode production"
+    "build": "rollup --config --bundleConfigAsCjs"
   },
   "repository": {
     "type": "git",
@@ -18,22 +17,23 @@
   "keywords": [
     "keyboard"
   ],
-  "author": "zy",
+  "author": "zy_ajiu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/zyTheGit/vehicleKeyborad/issues"
   },
   "homepage": "https://github.com/zyTheGit/vehicleKeyborad#readme",
   "devDependencies": {
-    "@babel/core": "^7.10.2",
-    "@babel/preset-env": "^7.10.2",
-    "autoprefixer": "^9.8.0",
-    "babel-loader": "^8.1.0",
-    "css-loader": "^3.5.3",
-    "postcss-loader": "^3.0.0",
-    "style-loader": "^1.2.1",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "@babel/core": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup": "^3.18.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-styles": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=16.11.0"
   }
 }
