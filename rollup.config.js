@@ -12,12 +12,12 @@ module.exports = {
   output: [
     {
       file: path.resolve(__dirname, "./lib/index.js"),
-      format: "umd",
+      format: "es",
       name: "Keyboard",
     },
     {
       file: path.resolve(__dirname, "./lib/Keyboard.min.js"),
-      format: "iife",
+      format: "umd",
       name: "Keyboard",
     },
   ],

@@ -1,6 +1,6 @@
 {
   "name": "vehicle-keyboard-js",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "parking vehicle keyboard",
   "main": "./lib/index.js",
   "files": [
