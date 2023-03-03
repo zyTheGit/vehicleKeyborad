@@ -4,12 +4,15 @@ html {
   font-size: 62.5%;
 }
 
-.keyboradZy {
+.keyboard {
   max-width: 78.5rem;
+  min-width: 36rem;
   width: 100%;
+  display: block;
   position: fixed;
   bottom: 0;
   left: 50%;
+  z-index: 10;
   transform: translate(-50%, 0);
   -webkit-transform: translate(-50%, 0);
   font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
@@ -17,17 +20,21 @@ html {
   font-size: 100%;
 }
 
-.keyboradZy .ch,
-.keyboradZy .en {
-  padding: .2rem .3rem;
-  box-sizing: border-box;
-  background-color: #ddd;
-  border-radius: .3rem;
+.keyboard__hide {
+  display: none;
 }
 
-.keyboradZy .ch>div,
-.keyboradZy .en>div,
-.keyboradInp {
+.keyboard .keyboard__ch,
+.keyboard .keyboard__en {
+  padding: 0.2rem 0.3rem;
+  box-sizing: border-box;
+  background-color: #ddd;
+  border-radius: 0.3rem;
+}
+
+.keyboard .keyboard__ch > div,
+.keyboard .keyboard__en > div,
+.keyboardInp {
   display: flex;
   display: -webkit-flex;
   justify-content: center;
@@ -35,85 +42,85 @@ html {
   font-size: 1.4rem;
 }
 
-.keyboradZy .ch>div>span,
-.keyboradZy .en>div>span {
+.keyboard .keyboard__ch > div > span,
+.keyboard .keyboard__en > div > span {
   text-align: center;
   flex: auto;
   -webkit-flex: auto;
-  padding: 1rem .4rem;
-  margin: .4rem .3rem;
-  transition: .3s;
+  padding: 1rem 0.4rem;
+  margin: 0.4rem 0.3rem;
+  transition: 0.3s;
   box-shadow: 0.08rem 0.1rem 0.2rem 0.02rem #999;
-  border: .1rem solid #ddd;
+  border: 0.1rem solid #ddd;
   overflow: hidden;
 }
 
-.keyboradZy .ch>div>span,
-.keyboradZy .en>div>span,
-.keyboradInp span {
-  border-radius: .5rem;
+.keyboard .keyboard__ch > div > span,
+.keyboard .keyboard__en > div > span,
+.keyboardInp span {
+  border-radius: 0.5rem;
   background-color: #fff;
   cursor: pointer;
   user-select: none;
   flex: 1;
 }
 
-.keyboradZy .ch>div>span:active,
-.keyboradZy .en>div>span:active {
+.keyboard .keyboard__ch > div > span:active,
+.keyboard .keyboard__en > div > span:active {
   background-color: #ddc;
   box-shadow: 0 0 0 0 #fff;
-  border-radius: .5rem;
+  border-radius: 0.5rem;
   outline: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   appearance: none;
   -webkit-appearance: none;
 }
 
-.keyboradZy .keyborad_del {
+.keyboard .keyboard__del {
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABZ0lEQVRYR+2W200DMRRETzqACoAKgAoIHdABoQKgA+ggVAAdQAfQAUkH0AF0gEbaKxnHr2tttD/rz6w1czx3vNkFE6/FxP7MAHMCrQksgVfgYKTS/gCXwKYFYAU8A1vgbSQAaX4AqxpAaK4URD7GkrnWsgSwL3MZVwH2aV4FaDU/Ay6Ap8RMVNZb4DEzr2wCrebStb0vwE1gJPN34AQ4zvQmCXA1XDW1vbVwMr8GDCI0l8amNQHFKepvh7lphxDS0clL5jsdUEyfwC8ggZ6rZhASPy+c3KD/jUCx6YfTYZYS8yyLXfBacSdSWjsd6IWIZ34XdSJ3kGQJQwi9p21TTiRXuLiYTQnYJoM4sj+Lwix02odM4Qzi0HMNeyAEnCtt6Vn1VexJwlPY5C0ozVikGsf90O4eM1cH4s29t6MGWh1BKCCI9XC9asKe50p1XfsgCQXV+rE+yb5spB4Az+ma984AcwKTJ/AHQABhIXkmPiIAAAAASUVORK5CYII=);
   background-repeat: no-repeat;
   background-position: center;
   padding: 1rem !important;
 }
 
-.keyboradZy div>span.enableBtn {
+.keyboard div > span.keyboard__enable--btn {
   background-color: #ddd;
   pointer-events: none;
 }
 
-.keyboradInp>span {
+.keyboardInp > span {
   display: block;
   width: 5rem;
   text-align: center;
   line-height: 40px;
-  margin: 0 .2rem;
-  border: .2rem solid #cdc496;
+  margin: 0 0.2rem;
+  border: 0.2rem solid #cdc496;
   flex: inherit;
 }
 
-.keyboradInp .keyborad_interval {
-  width: .5rem;
+.keyboardInp .keyboard__interval {
+  width: 0.5rem;
   box-shadow: none;
   border: none;
   font-size: 1.6rem;
   font-weight: 800;
 }
 
-.keyboradInp>span.keyborad_especial>font {
+.keyboardInp > span.keyboard__especial > font {
   width: 100%;
   height: 100%;
   display: block;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAvCAMAAABXLiNqAAAAe1BMVEX////6+vr4+Pj8/PzNzc3KysrAwMD29vbr6+vm5ubS0tLY2Njx8fG8vLzv7+/U1NSlpaXf39+1tbXCwsKysrLa2tq5ubmurq6oqKjo6OjPz8/z8/OdnZ2QkJDh4eHHx8eqqqqhoaHc3NzExMSYmJiWlpbj4+OJiYmIiIg8n+V6AAABhklEQVQ4y+2Ux47dIBRA6b2Du/Nsv5b8/xfG2FlEWcx4k0WiORIS5QC69yLAF/8LnF/z+oAueeGi1/efe3CnDxOE+EMNh+/fDn504EP8Qsk8U7po8Clrfz2OK8zztURTCsEX/wD4t0eJYH2s5/Sf3qTgLsjF7/0kEdDvuhVTDzUhShFqquUYe7ElhpQFAGOSCYzxtu57hnl8smwLs6J6/GFlUSOpffn0/qVURyM+hgkJ9hAOVKBkouNeIcjxpKV8NyQCoOWggWjv2WuSDu/Wlbnv6DNsL41Ja1ukQmavQTyTsE2OkZTzPCfbwXjiWglNiLeg3UjIe1+I0t5Z09Du8MQjh0yJRtmAaaVki36A/l5XGjtkulB7pkk4KqGKiBlgEoS2UaWUGuJKHpir1qEze52gDaOuelPP8nwbW1E/LWXHQY9327TwCF4by3XiyDpgOo6KJhpDRtwmrShOtSjdzqoxBoXHv+4lq4tb6YIZ1KQQbzZVa3nAca3l0WAdAGQMBieIg7/CT+PrFzXpIJefAAAAAElFTkSuQmCC);
   background-repeat: no-repeat;
   background-position: center;
-  transform: scale(.8);
-  -webkit-transform: scale(.8);
+  transform: scale(0.8);
+  -webkit-transform: scale(0.8);
 }
 
-.keyboradInp .keyborad_active {
-  border: .2rem solid #d1824d;
+.keyboardInp .keyboard__active {
+  border: 0.2rem solid #d1824d;
 }
 
-.keyboradZy .keyborad_switch {
-  font-size: .12rem;
+.keyboard .keyboard__switch {
+  font-size: 0.12rem;
 }

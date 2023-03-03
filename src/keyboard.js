@@ -1,9 +1,8 @@
 /**
  * author=zy
- * version=1.0.6
+ * version=1.0.13
  */
 
-// require("./keyboard.css");
 import "./keyboard.css";
 class Jquery {
   constructor(name = "") {
@@ -70,13 +69,13 @@ class Keyboard extends Jquery {
     enabledCh,
     enabledEn,
     externalKeyboard,
-    backpaceEventFn,
+    backpaceFn,
     keyboardFn,
     initComplateFn,
   }) {
     super(boxName);
     //版本号
-    this.version = "1.0.6";
+    this.version = "1.0.13";
     //外层盒子名称,显示键盘
     this.boxName = boxName || "";
     //输入键盘名称
@@ -183,7 +182,7 @@ class Keyboard extends Jquery {
     //键盘创建完成的函数
     this.initComplateFn = initComplateFn || null;
     //backpace点击回调
-    this.backpaceEventFn = backpaceEventFn || null;
+    this.backpaceFn = backpaceFn || null;
     //页面中传来的车牌号
     this.pageVehicleSplit = pageVehicleSplit || "";
     //需要禁用的中文键
@@ -202,7 +201,7 @@ class Keyboard extends Jquery {
     //writeBoxName是否为input
     this.__writeBoxIsInput__ = false;
     //外层盒子的dom
-    this.__keyboradZyDom__ = null;
+    this.__keyboardDom__ = null;
     //键盘操作盒子
     this.__writeBoxNameDom__ = null;
     //使用详细
@@ -223,15 +222,15 @@ class Keyboard extends Jquery {
       externalKeyboard: "是否开启外置键盘",
       enabledCh: "需要禁用的中文键-Array-非必填项",
       enabledEn: "需要禁用的英文键-Array-非必填项",
-      backpaceEventFn: "backpace点击回调-Function-非必填项",
+      backpaceFn: "backpace点击回调-Function-非必填项",
       keyboardFn: "键盘点击回调-Function-非必填项",
       initComplateFn: "键盘初始化完成的回调-Function-非必填项",
     };
   }
   init() {
-    this.chArray = this.chArray.concat(this.pushCh, ["中/EN", "删除"]);
-    this.enArray = this.enArray.concat(this.pushEn, ["中/EN", "删除"]);
-    this._createKeyBorad();
+    this.chArray = [...this.chArray, ...this.pushCh, "中/en", "删除"];
+    this.enArray = [...this.enArray, ...this.pushEn, "中/en", "删除"];
+    this._createKeyboard();
     //如果writeBoxName和entryInputNa全部传了参数，已用户自己的输入框为主
     !!this.__writeBoxNameDom__ &&
       !!this.entryInputNa &&
@@ -256,10 +255,10 @@ class Keyboard extends Jquery {
     this._keyboardExternalEvent();
   }
 
-  _createKeyBorad() {
+  _createKeyboard() {
     if (!this.boxName) throw new Error("搁置键盘盒子的名称字段必要的'boxName'");
     this._loopSpan();
-    this._keyboradEvent();
+    this._keyboardEvent();
     this._isInputFn();
     this._inputChangeEvent();
   }
@@ -268,37 +267,37 @@ class Keyboard extends Jquery {
   _createInp() {
     let divBox = document.createElement("div");
     let div = document.createElement("div");
-    div.className = "keyboradInp";
-    divBox.className = "keyboradInpBox";
+    div.className = "keyboardInp";
+    divBox.className = "keyboardInpBox";
     let frag = document.createDocumentFragment();
     for (let i = 0; i < this.inputLen; i++) {
       let span = document.createElement("span"),
         num = i;
-      span.className = "key_item";
-      if (i == 0) span.className = "keyborad_active key_item";
+      span.className = "keyboard__item";
+      if (i == 0) span.className = "keyboard__active keyboard__item";
       if (i > 2) num = num - 1;
       if (i == 2) {
-        span.className = "keyborad_interval";
+        span.className = "keyboard__interval";
         span.innerText = "·";
       } else {
         span.setAttribute("data-index", num);
       }
       if (i == this.inputLen - 1) {
         span.innerHTML = "<font></font>";
-        span.className = "keyborad_especial key_item";
+        span.className = "keyboard__especial keyboard__item";
       }
       frag.appendChild(span);
     }
     div.appendChild(frag);
     divBox.appendChild(div);
     document.querySelector(this.entryInputNa).appendChild(divBox);
-    this._keyboradInpEvent();
+    this._keyboardInpEvent();
   }
 
   //键盘点击事件
-  _keyboradEvent() {
+  _keyboardEvent() {
     let _this = this,
-      allEle = document.querySelectorAll(".keyboradZy span"),
+      allEle = document.querySelectorAll(".keyboard span"),
       array = [];
     (!allEle.length && array.push(allEle)) || (array = [...allEle]);
     for (let i = 0; i < array.length; i++) {
@@ -310,11 +309,11 @@ class Keyboard extends Jquery {
               inputSpanAll = document.querySelectorAll(
                 _this.entryInputNa + " span[data-index]"
               );
-            if (!inputSpanAll) throw new Error("entryInputNa是否为空");
-            if (_this.hasClass(this, "keyborad_switch")) {
+            if (!inputSpanAll) throw new Error("entryInputNa不能为空");
+            if (_this.hasClass(this, "keyboard__switch")) {
               //中文英文切换
               _this._switchEnOrCh();
-            } else if (_this.hasClass(this, "keyborad_del")) {
+            } else if (_this.hasClass(this, "keyboard__del")) {
               //删除操作
               (!_this.__writeBoxNameDom__ &&
                 _this._builtInDel(_this, inputSpanAll)) ||
@@ -351,20 +350,20 @@ class Keyboard extends Jquery {
   _builtInEvalua(inputSpanAll, txt, isDisbaledMoveFocus = true) {
     //isDisbaledMoveFocus是否禁用点击自动到下一位
     let especialExis = this.hasClass(
-      document.querySelector(".keyboradInp span:last-child"),
-      "keyborad_especial"
+      document.querySelector(".keyboardInp span:last-child"),
+      "keyboard__especial"
     );
     inputSpanAll[this.index].innerHTML = txt;
     Array.from(inputSpanAll).forEach((item) => {
-      this.removeClass(item, "keyborad_active");
+      this.removeClass(item, "keyboard__active");
     });
     if (especialExis && this.index == 6) {
-      this.addClass(inputSpanAll[this.index], "keyborad_active");
+      this.addClass(inputSpanAll[this.index], "keyboard__active");
       return false;
     }
     if (isDisbaledMoveFocus) {
       this.index < this.inputLen - this.inpRedundantLen && this.index++;
-      this.addClass(inputSpanAll[this.index], "keyborad_active");
+      this.addClass(inputSpanAll[this.index], "keyboard__active");
       this.index >= 1 && ((this.status = true), this._switchEnOrCh());
     }
   }
@@ -373,7 +372,7 @@ class Keyboard extends Jquery {
   _builtInDel(_this, inputSpanAll) {
     inputSpanAll[_this.index].innerHTML = "";
     Array.from(inputSpanAll).forEach((item) => {
-      _this.removeClass(item, "keyborad_active");
+      _this.removeClass(item, "keyboard__active");
     });
     _this.saveValue[_this.index] = "";
     if (_this.index > 0 && !_this.saveValue[_this.index]) {
@@ -382,11 +381,11 @@ class Keyboard extends Jquery {
       _this.status = false;
       _this._switchEnOrCh();
     }
-    _this.addClass(inputSpanAll[_this.index], "keyborad_active");
+    _this.addClass(inputSpanAll[_this.index], "keyboard__active");
   }
 
   //输入框点击事件
-  _keyboradInpEvent() {
+  _keyboardInpEvent() {
     let _this = this,
       array = [],
       allEle = document.querySelectorAll(
@@ -402,24 +401,24 @@ class Keyboard extends Jquery {
               _this.entryInputNa + " span[data-index]"
             );
             let especialExis = _this.hasClass(
-              document.querySelector(".keyboradInp span:last-child"),
-              "keyborad_especial"
+              document.querySelector(".keyboardInp span:last-child"),
+              "keyboard__especial"
             );
             let dataIndex = this.getAttribute("data-index");
-            let keyboradShow = _this.__keyboradZyDom__.style.display;
-            keyboradShow == "none" && _this.keyboradShow();
+            let keyboardShow = _this.__keyboardDom__.style.display;
+            keyboardShow == "none" && _this.keyboardShow();
             especialExis &&
               dataIndex == 7 &&
               ((this.innerHTML = ""),
               _this.removeClass(
-                document.querySelector(".keyboradInp span:last-child"),
-                "keyborad_especial"
+                document.querySelector(".keyboardInp span:last-child"),
+                "keyboard__especial"
               ));
             dataIndex == 0 && ((_this.status = false), _this._switchEnOrCh());
             Array.from(inputSpanAll).forEach((item) => {
-              _this.removeClass(item, "keyborad_active");
+              _this.removeClass(item, "keyboard__active");
             });
-            _this.addClass(inputSpanAll[dataIndex], "keyborad_active");
+            _this.addClass(inputSpanAll[dataIndex], "keyboard__active");
             _this.index = dataIndex;
             _this._eventBubbling(e);
           },
@@ -431,10 +430,9 @@ class Keyboard extends Jquery {
 
   //输入框外置键盘点击事件
   _keyboardExternalEvent() {
-    let _this = this,
-      inputSpanAll = document.querySelectorAll(
-        this.entryInputNa + " span[data-index]"
-      );
+    let inputSpanAll = document.querySelectorAll(
+      this.entryInputNa + " span[data-index]"
+    );
     if (!inputSpanAll) throw new Error("entryInputNa是否为空");
     this.externalKeyboard &&
       this.entryInputNa &&
@@ -444,7 +442,7 @@ class Keyboard extends Jquery {
           item.innerHTML = "";
         });
         item.addEventListener("keyup", (e) => {
-          _this._externalOrBuilt(item.innerHTML, inputSpanAll, false);
+          this._externalOrBuilt(item.innerHTML, inputSpanAll, false);
         });
       });
   }
@@ -452,20 +450,19 @@ class Keyboard extends Jquery {
   //判断按的是字母和数字
   _regNumberOrLetter(key) {
     let reg = /^[a-zA-Z0-9]/g;
-    reg.test(key);
+    return reg.test(key);
   }
 
   //监听显示车牌的是input框时做的操作
   _monitorInputClick() {
-    let _this = this;
-    !!this.__writeBoxNameDom__ &&
-      this.__writeBoxNameDom__.addEventListener("keydown", (e) => {
-        e.keyCode === 8 && _this._delWriteBoxName();
-      });
+    this.__writeBoxNameDom__?.addEventListener("keydown", (e) => {
+      e.keyCode === 8 && this._delWriteBoxName();
+    });
   }
 
   //删除writeBoxName的操作
   _delWriteBoxName() {
+    this.backpaceFn?.();
     (this.index > 0 && !this.saveValue[this.index] && this.index--) ||
       (this.index == 0 && ((this.status = false), this._switchEnOrCh()));
     this.saveValue[this.index] = "";
@@ -475,18 +472,17 @@ class Keyboard extends Jquery {
         this.__writeBoxNameDom__.focus(),
         (this.index = this.getVehicleValue().length))) ||
         (this.__writeBoxNameDom__.innerText = this.getVehicleValue()));
-    this.backpaceEventFn && this.backpaceEventFn();
   }
 
   //中英文切换
   _switchEnOrCh() {
     this.status = !this.status;
     if (this.status) {
-      document.querySelector(".keyboradZy .ch").style.display = "block";
-      document.querySelector(".keyboradZy .en").style.display = "none";
+      document.querySelector(".keyboard .keyboard__ch").style.display = "block";
+      document.querySelector(".keyboard .keyboard__en").style.display = "none";
     } else {
-      document.querySelector(".keyboradZy .ch").style.display = "none";
-      document.querySelector(".keyboradZy .en").style.display = "block";
+      document.querySelector(".keyboard .keyboard__ch").style.display = "none";
+      document.querySelector(".keyboard .keyboard__en").style.display = "block";
     }
   }
 
@@ -496,11 +492,11 @@ class Keyboard extends Jquery {
     if (!this.__writeBoxNameDom__) return;
     this._getVehicleSplit();
     this.__writeBoxNameDom__.addEventListener("click", function (e) {
-      _this.keyboradShow();
+      _this.keyboardShow();
       _this._eventBubbling(e);
     });
-    this.__keyboradZyDom__.addEventListener("click", function (e) {
-      _this.keyboradShow();
+    this.__keyboardDom__.addEventListener("click", function (e) {
+      _this.keyboardShow();
       _this._eventBubbling(e);
     });
   }
@@ -511,33 +507,32 @@ class Keyboard extends Jquery {
       enArray = this.enArray,
       chBox = document.createElement("div"),
       enBox = document.createElement("div"),
-      keyboradZy = document.createElement("div");
+      keyboard = document.createElement("div");
     enBox.style.display = "none";
-    chBox.className = "ch";
-    enBox.className = "en";
-    keyboradZy.className = "keyboradZy";
+    chBox.className = "keyboard__ch";
+    enBox.className = "keyboard__en";
+    keyboard.className = "keyboard";
 
-    keyboradZy.appendChild(
+    keyboard.appendChild(
       this._splicingKeyboard({
         _array: chArray,
         finalBox: chBox,
         thatKeyboardEnable: this.enabledCh,
       })
     );
-    keyboradZy.appendChild(
+    keyboard.appendChild(
       this._splicingKeyboard({
         _array: enArray,
         finalBox: enBox,
         thatKeyboardEnable: this.enabledEn,
       })
     );
-    this.append(keyboradZy);
-    this.__keyboradZyDom__ = keyboradZy;
-    this.__keyboradZyDom__.onclick = (e) => this._eventBubbling(e);
+    this.append(keyboard);
+    this.__keyboardDom__ = keyboard;
+    this.__keyboardDom__.onclick = (e) => this._eventBubbling(e);
     this.__writeBoxNameDom__ =
-      (!!this.writeBoxName && document.querySelector(this.writeBoxName)) ||
-      null;
-    this.initComplateFn && this.initComplateFn();
+      (this.writeBoxName && document.querySelector(this.writeBoxName)) || null;
+    this.initComplateFn?.();
   }
 
   //拼接html
@@ -558,9 +553,9 @@ class Keyboard extends Jquery {
         html = "";
       }
       index == _arrayLen - 2 &&
-        (spanBox = `<span class="keyborad_switch">${item}</span>`);
+        (spanBox = `<span class="keyboard__switch">${item}</span>`);
       index == _arrayLen - 1 &&
-        (spanBox = `<span class="keyborad_del"></span>`);
+        (spanBox = `<span class="keyboard__del"></span>`);
       html += spanBox;
       if (index == _arrayLen - 1) {
         let div = document.createElement("div");
@@ -575,7 +570,7 @@ class Keyboard extends Jquery {
   _arrayIsNoEnabled(val, thatKeyboard) {
     return (
       (thatKeyboard.find((item) => val == item.toLocaleUpperCase()) &&
-        "enableBtn") ||
+        "keyboard__enable--btn") ||
       ""
     );
   }
@@ -600,10 +595,10 @@ class Keyboard extends Jquery {
       );
       Array.from(inputSpanAll).forEach(function (item) {
         let dataIndex = item.getAttribute("data-index");
-        _this.removeClass(item, "keyborad_active");
+        _this.removeClass(item, "keyboard__active");
         if (dataIndex >= _this.saveValue.length) {
           dataIndex == _this.saveValue.length &&
-            (_this.addClass(item, "keyborad_active"),
+            (_this.addClass(item, "keyboard__active"),
             (_this.index = dataIndex));
           return false;
         }
@@ -635,13 +630,11 @@ class Keyboard extends Jquery {
 
   //获取焦点事件
   _inputFocusEvent() {
-    let _this = this;
-    !!this.__writeBoxNameDom__ &&
-      this.__writeBoxIsInput__ &&
-      this.__writeBoxNameDom__.addEventListener("keydown", function () {
-        _this.index = _this._getPosition(this);
+    this.__writeBoxIsInput__ &&
+      this.__writeBoxNameDom__?.addEventListener("keydown", () => {
+        this.index = this._getPosition(this);
       }) &&
-      this.__writeBoxNameDom__.addEventListener("focus", function () {});
+      this.__writeBoxNameDom__?.addEventListener("focus", function () {});
   }
 
   //判断writeBoxName是否为input
@@ -679,12 +672,12 @@ class Keyboard extends Jquery {
       this._switchEnOrCh();
       Array.from(inputSpanAll).forEach((item, index) => {
         inputSpanAll[index].innerHTML = "";
-        this.removeClass(item, "keyborad_active");
+        this.removeClass(item, "keyboard__active");
       });
-      this.addClass(inputSpanAll[0], "keyborad_active");
+      this.addClass(inputSpanAll[0], "keyboard__active");
       this.addClass(
         inputSpanAll[inputSpanAll.length - 1],
-        "keyborad_especial key_item"
+        "keyboard__especial keyboard__item"
       );
       inputSpanAll[inputSpanAll.length - 1].innerHTML = "<font></font>";
       this._getVehicleSplit();
@@ -695,30 +688,21 @@ class Keyboard extends Jquery {
 
   //获取输入车牌
   getVehicleValue() {
-    let html = "";
-    if (this.saveValue.length == 0) return "";
-    this.saveValue.forEach((item) => {
-      html += item;
-    });
-    return html;
-  }
-
-  //键盘显示
-  keyboradShow() {
-    this.__keyboradZyDom__.style.display = "block";
-  }
-  //键盘显示
-  keyboradHide() {
-    this.__keyboradZyDom__.style.display = "none";
+    return this.saveValue.reduce((pre, i) => {
+      i !== "" && (pre += i);
+      return pre;
+    }, "");
   }
 
   //键盘显示
   keyboardShow() {
-    this.__keyboradZyDom__.style.display = "block";
+    this.hasClass(this.__keyboardDom__, "keyboard__hide") &&
+      this.removeClass(this.__keyboardDom__, "keyboard__hide");
   }
   //键盘显示
   keyboardHide() {
-    this.__keyboradZyDom__.style.display = "none";
+    !this.hasClass(this.__keyboardDom__, "keyboard__hide") &&
+      this.addClass(this.__keyboardDom__, "keyboard__hide");
   }
 
   //使用文档
