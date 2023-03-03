@@ -2,26 +2,29 @@
 
 普通车牌和新能源车牌
 + 中文键盘
+  
 ![中文键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/ch.png)
 
 + 英文键盘
+  
 ![英文键盘](https://github.com/zyTheGit/vehicleKeyborad/blob/master/img/en.png)
 
 # 适用范围
 
-- 使用 flex 自动布局，适用于多端
-
+- 使用 `flex` 自动布局，适用于多端
 - 中英文键盘都可根据自己的需求定义
+- 可模块化导入
+- 可以浏览器中直接引入
 
 # 安装
 ```shell
-npm install zy-vehicle-keyboard
+npm install vehicle-keyboard-js
 ```
 
 # 使用方法
 
 - 页面引用`html/keyboard.js`即可或者
-  `import Keyboard from 'zy-vehicle-keyboard'`
+  `import Keyboard from 'vehicle-keyboard-js'`
 
   **在执行初始化的时候如果是使用vue的话，需要在*mounted*下执行初始化操作**
 1. `html`页面设置
@@ -84,20 +87,7 @@ var keyboard = new Keyboard({
 - `initComplateFn` -Function- 键盘创建完成的回调函数
 
 # 版本更新
-* **1.0.6**
-  - 优化键盘切换中英文高度不一致
-  - 优化按钮使用体验
-  
-* **1.0.5**
-  - 新增键盘返回键事件
-  - 可以使用 require或者import 导入的方式
-  - 新增自定义键盘
-  - 新增预设车牌
-  - 新增键盘重置方法
-  - 使用 input 显示输入车牌时，可以使用自己的键盘输入
-  - 兼容低版本设备 兼容到 ie11
-  - `css` 样式添加浏览器兼容前缀
-  - 优化键盘点击被隐藏掉的问题
-  - 优化编译之后的大小
+* **1.0.8**
+  - 包由`zy-vehicle-keyboard`更名为`vehicle-keyboard-js`
   
 

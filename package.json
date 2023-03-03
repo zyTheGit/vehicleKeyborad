@@ -1,6 +1,6 @@
 {
-  "name": "zy-vehicle-keyboard",
-  "version": "1.1.0-0",
+  "name": "vehicle-keyboard-js",
+  "version": "1.0.9",
   "description": "parking vehicle keyboard",
   "main": "./lib/index.js",
   "files": [
@@ -17,7 +17,7 @@
   "keywords": [
     "keyboard"
   ],
-  "author": "zy",
+  "author": "zy_ajiu",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/zyTheGit/vehicleKeyborad/issues"
@@ -32,5 +32,8 @@
     "rollup": "^3.18.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-styles": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=16.11.0"
   }
 }

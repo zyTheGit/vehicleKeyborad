@@ -14,7 +14,6 @@ module.exports = {
       file: path.resolve(__dirname, "./lib/index.js"),
       format: "umd",
       name: "Keyboard",
-      // plugins: [terser()],
     },
     {
       file: path.resolve(__dirname, "./lib/Keyboard.min.js"),
