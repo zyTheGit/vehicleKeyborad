@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>browser键盘使用</title>
+  <title>es键盘使用</title>
 </head>
 
 <body>
@@ -15,9 +15,9 @@
   <button onclick='reset()'>重置</button>
   <button onclick='show()'>显示</button>
   <button onclick='hide()'>隐藏</button>
-  <!-- <script src="./keyboard.js"></script> -->
-  <script src="../lib/Keyboard.min.js"></script>
-  <script>
+  <script type="module">
+    import Keyboard from '../lib/index.js'
+
     const keyboard = new Keyboard({
       boxName: ".keyboard",
       // writeBoxName: ".inp",

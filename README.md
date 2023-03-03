@@ -22,7 +22,7 @@ npm install vehicle-keyboard-js
 ```
 你也可以通过`cdn`引入
 ```html
-<script src="https://unpkg.com/vehicle-keyboard-js@1.0.13/lib/Keyboard.min.js"></script>
+<script src="https://unpkg.com/vehicle-keyboard-js@1.0.14/lib/Keyboard.min.js"></script>
 ```
 
 # 使用方法
@@ -88,7 +88,7 @@ keyboard.init();
 - `initComplateFn` -`Function`- 键盘创建完成的回调函数
 
 # 版本更新
-* **1.0.13**
+* **1.0.14**
   - 包由`zy-vehicle-keyboard`更名为`vehicle-keyboard-js`
   - 修复删除事件多返回一位
   
