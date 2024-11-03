@@ -1,12 +1,12 @@
 /**
  * author=zy
- * version=1.0.14
+ * version=1.0.15
  */
 
 import "./keyboard.css";
 class Jquery {
-  constructor(name = "") {
-    this.element = this.getEle(name);
+  constructor() {
+    this.element = null;
   }
   append(child) {
     this.forEle(function (item) {
@@ -73,9 +73,9 @@ class Keyboard extends Jquery {
     keyboardFn,
     initComplateFn,
   }) {
-    super(boxName);
+    super();
     //版本号
-    this.version = "1.0.14";
+    this.version = "1.0.15";
     //外层盒子名称,显示键盘
     this.boxName = boxName || "";
     //输入键盘名称
@@ -230,7 +230,12 @@ class Keyboard extends Jquery {
   init() {
     this.chArray = [...this.chArray, ...this.pushCh, "中/en", "删除"];
     this.enArray = [...this.enArray, ...this.pushEn, "中/en", "删除"];
+    this.element =
+      this.boxName instanceof HTMLElement
+        ? this.boxName
+        : this.getEle(this.boxName);
     this._createKeyboard();
+
     //如果writeBoxName和entryInputNa全部传了参数，已用户自己的输入框为主
     !!this.__writeBoxNameDom__ &&
       !!this.entryInputNa &&
@@ -414,7 +419,8 @@ class Keyboard extends Jquery {
                 document.querySelector(".keyboardInp span:last-child"),
                 "keyboard__especial"
               ));
-            dataIndex == 0 && ((_this.status = false), _this._switchEnOrCh());
+            _this.status = dataIndex != 0;
+            _this._switchEnOrCh();
             Array.from(inputSpanAll).forEach((item) => {
               _this.removeClass(item, "keyboard__active");
             });
@@ -548,6 +554,7 @@ class Keyboard extends Jquery {
       )}">${item}</span>`;
       if (index % lineRow == 0 && index != 0) {
         let div = document.createElement("div");
+        div.className = "keyboard__line";
         div.innerHTML = html;
         finalBox.appendChild(div);
         html = "";
@@ -559,6 +566,7 @@ class Keyboard extends Jquery {
       html += spanBox;
       if (index == _arrayLen - 1) {
         let div = document.createElement("div");
+        div.className = "keyboard__line";
         div.innerHTML = html;
         finalBox.appendChild(div);
       }

@@ -5,16 +5,15 @@ html {
 }
 
 .keyboard {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  z-index: 10;
   max-width: 78.5rem;
   min-width: 36rem;
   width: 100%;
   display: block;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  z-index: 10;
-  transform: translate(-50%, 0);
-  -webkit-transform: translate(-50%, 0);
   font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
   line-height: 1;
   font-size: 100%;
@@ -32,21 +31,19 @@ html {
   border-radius: 0.3rem;
 }
 
-.keyboard .keyboard__ch > div,
-.keyboard .keyboard__en > div,
+.keyboard .keyboard__ch .keyboard__line,
+.keyboard .keyboard__en .keyboard__line,
 .keyboardInp {
   display: flex;
-  display: -webkit-flex;
   justify-content: center;
   flex-wrap: nowrap;
   font-size: 1.4rem;
 }
 
-.keyboard .keyboard__ch > div > span,
-.keyboard .keyboard__en > div > span {
+.keyboard .keyboard__ch .keyboard__line > span,
+.keyboard .keyboard__en .keyboard__line > span {
   text-align: center;
   flex: auto;
-  -webkit-flex: auto;
   padding: 1rem 0.4rem;
   margin: 0.4rem 0.3rem;
   transition: 0.3s;
@@ -55,8 +52,8 @@ html {
   overflow: hidden;
 }
 
-.keyboard .keyboard__ch > div > span,
-.keyboard .keyboard__en > div > span,
+.keyboard .keyboard__ch .keyboard__line > span,
+.keyboard .keyboard__en .keyboard__line > span,
 .keyboardInp span {
   border-radius: 0.5rem;
   background-color: #fff;
@@ -65,15 +62,14 @@ html {
   flex: 1;
 }
 
-.keyboard .keyboard__ch > div > span:active,
-.keyboard .keyboard__en > div > span:active {
+.keyboard .keyboard__ch .keyboard__line > span:active,
+.keyboard .keyboard__en .keyboard__line > span:active {
   background-color: #ddc;
   box-shadow: 0 0 0 0 #fff;
   border-radius: 0.5rem;
   outline: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   appearance: none;
-  -webkit-appearance: none;
 }
 
 .keyboard .keyboard__del {
@@ -83,7 +79,7 @@ html {
   padding: 1rem !important;
 }
 
-.keyboard div > span.keyboard__enable--btn {
+.keyboard .keyboard__line > span.keyboard__enable--btn {
   background-color: #ddd;
   pointer-events: none;
 }
@@ -114,7 +110,6 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   transform: scale(0.8);
-  -webkit-transform: scale(0.8);
 }
 
 .keyboardInp .keyboard__active {
@@ -122,5 +117,5 @@ html {
 }
 
 .keyboard .keyboard__switch {
-  font-size: 0.12rem;
+  font-size: 14px;
 }
