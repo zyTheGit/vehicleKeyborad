@@ -28,11 +28,11 @@ npm install vehicle-keyboard-js
 
 1. 引入`js`
 ```js
-<script src="https://unpkg.com/vehicle-keyboard-js@1.1.0/lib/Keyboard.min.js"></script>
+<script src="https://unpkg.com/vehicle-keyboard-js@1.1.1/lib/Keyboard.min.js"></script>
 ```
 2. 引入样式
 ```css
-<link rel="stylesheet" href="https://unpkg.com/vehicle-keyboard-js@1.1.0/lib/style/default.css"></link>
+<link rel="stylesheet" href="https://unpkg.com/vehicle-keyboard-js@1.1.1/lib/style/default.css"></link>
 ```
 
 ## Vue 中使用
@@ -41,7 +41,6 @@ npm install vehicle-keyboard-js
 <script setup>
 import { ref, onMounted } from "vue";
 import Keyboard from "vehicle-keyboard-js";
-// 须单独引入默认样式，也可自定义样式
 import "vehicle-keyboard-js/lib/style/default.css";
 
 const keyboard = ref();
@@ -49,16 +48,19 @@ const keyboard = ref();
 keyboard.value = new Keyboard({
   boxName: ".box",
   // writeBoxName: ".inp",
-  entryInputNa: ".inp",
-  pageVehicleSplit: "鄂j401",
+  entryInputName: ".inp",
+  defaultVehicleValue: "鄂j401",
   pushCh: ["中", "国", "加", "油"],
   pushEn: ["1"],
   enabledEn: ["O", "j", "1"],
   enabledCh: ["油"],
   externalKeyboard: true, //是否启用自己的键盘
-  backpaceFn: function () {
-    console.log("backpaceFn=>删除事件的回调");
+  onBackpace() {
+    console.log("onBackpace=>删除事件的回调");
     console.log(keyboard.value.getVehicleValue());
+  },
+  onChange(val) {
+    console.log("onChange=>事件的回调", val);
   },
 });
 
@@ -71,6 +73,7 @@ onMounted(() => {
   <div class="inp"></div>
   <div class="box"></div>
 </template>
+
 ```
 其他`js`框架同理，在框架虚拟`dom`加载完成的时候，调用键盘的初始化方法即可；
 
@@ -153,7 +156,7 @@ keyboard.init();
   - **将 css 抽离到单独的文件中，减少`js`的体积，用户可自定义键盘样式，须用户单独引入 css 样式**
   - 修复切换到第二个输入框，键盘没有自动切换到数字键盘
   
-- **1.1.0**（重大更新）
+- **1.1.1**（重大更新）
   - 修改有歧义的属性和方法，变更如下
    1. entryInputNa => entryInputName
    2. keyboardShowRowNum => rowNumber
