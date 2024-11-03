@@ -28,7 +28,7 @@ module.exports = {
     postcss({
       extensions: [".css"],
       plugins: [autoprefixer(), cssnano()],
-      extract: "css/default.css",
+      extract: "style/default.css",
     }),
     resolve({ jsnext: true, main: true, browser: true }),
     babel({ exclude: "node_modules/**", babelHelpers: "bundled" }),
