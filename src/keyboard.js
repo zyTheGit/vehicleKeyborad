@@ -1,6 +1,6 @@
 /**
  * author=zy
- * version=1.0.16
+ * version=1.1.0
  */
 
 import "./keyboard.css";
@@ -57,29 +57,29 @@ class Jquery {
 class Keyboard extends Jquery {
   constructor({
     boxName,
-    entryInputNa,
+    entryInputName,
     writeBoxName,
     chArray,
     enArray,
-    keyboardShowRowNum,
+    rowNumber,
     pushCh,
     pushEn,
-    inputLen,
-    pageVehicleSplit,
+    inputNumber,
+    defaultVehicleValue,
     enabledCh,
     enabledEn,
     externalKeyboard,
-    backpaceFn,
-    keyboardFn,
-    initComplateFn,
+    onBackpace,
+    onChange,
+    onComplate,
   }) {
     super();
     //版本号
-    this.version = "1.0.16";
+    this.version = "1.1.0";
     //外层盒子名称,显示键盘
     this.boxName = boxName || "";
     //输入键盘名称
-    this.entryInputNa = entryInputNa || "";
+    this.entryInputName = entryInputName || "";
     //存键盘操作的值的 盒子
     this.writeBoxName = writeBoxName || "";
     //中文键盘
@@ -166,25 +166,25 @@ class Keyboard extends Jquery {
     //默认中文键盘往里面push
     this.pushEn = (pushEn instanceof Array && pushEn) || [];
     //显示多少行
-    this.line = keyboardShowRowNum || 5;
+    this.line = rowNumber || 5;
     //保存键盘输入的值
     this.saveValue = [];
     //输入框的下标
     this.index = 0;
     //车牌号的长度，显示其实是八个车牌号，因为有一个点暂位置，所以是长度9
-    this.inputLen = inputLen || 9;
+    this.inputNumber = inputNumber || 9;
     //9个span有一个span不做输入操作，所以减两个
     this.inpRedundantLen = 2;
     //键盘显示状态true为输入中文，false为输入英文
     this.status = true;
     //键盘点击回调
-    this.keyboardFn = keyboardFn || null;
+    this.onChange = onChange || null;
     //键盘创建完成的函数
-    this.initComplateFn = initComplateFn || null;
+    this.onComplate = onComplate || null;
     //backpace点击回调
-    this.backpaceFn = backpaceFn || null;
+    this.onBackpace = onBackpace || null;
     //页面中传来的车牌号
-    this.pageVehicleSplit = pageVehicleSplit || "";
+    this.defaultVehicleValue = defaultVehicleValue || "";
     //需要禁用的中文键
     this.enabledCh = enabledCh || [];
     //需要禁用的英文键
@@ -207,24 +207,24 @@ class Keyboard extends Jquery {
     //使用详细
     this.detail = {
       boxName: "放置键盘盒子的名称-String-必填项",
-      entryInputNa:
+      entryInputName:
         "放置键盘输入框名称-String-非必填项（writeBoxName为空时，必填）",
       writeBoxName:
         "自己显示键盘值的输入框,input或者其他的元素都可以支持-String-非必填项（entryInputNa为空时，必填）",
       chArray: "有自己的默认值，显示中文车牌-Array-非必填项",
       enArray: "有自己的默认值，显示字母和数字-Array-非必填项",
-      keyboardShowRowNum: "键盘排列几行，默认显示5行-Int-非必填项",
+      rowNumber: "键盘排列几行，默认显示5行-Int-非必填项",
       pushCh: "可以往原有的中文键盘中添加自己的中文-Array-非必填项",
       pushEn: "可以往原有的字母和数字键盘中添加自己的字母和数字-Array-非必填项",
-      inputLen:
+      inputNumber:
         "现实几个键盘输入框，不建议修改，默认是9个，带中间一个点-Int-非必填项",
-      pageVehicleSplit: "页面中传来的部分车牌，String",
+      defaultVehicleValue: "页面中传来的部分车牌，String",
       externalKeyboard: "是否开启外置键盘",
       enabledCh: "需要禁用的中文键-Array-非必填项",
       enabledEn: "需要禁用的英文键-Array-非必填项",
-      backpaceFn: "backpace点击回调-Function-非必填项",
-      keyboardFn: "键盘点击回调-Function-非必填项",
-      initComplateFn: "键盘初始化完成的回调-Function-非必填项",
+      onBackpace: "backpace点击回调-Function-非必填项",
+      onChange: "键盘点击回调-Function-非必填项",
+      onComplate: "键盘初始化完成的回调-Function-非必填项",
     };
   }
   init() {
@@ -238,13 +238,13 @@ class Keyboard extends Jquery {
 
     //如果writeBoxName和entryInputNa全部传了参数，已用户自己的输入框为主
     !!this.__writeBoxNameDom__ &&
-      !!this.entryInputNa &&
-      ((this.entryInputNa = ""), (this.__OwnBox__ = false));
+      !!this.entryInputName &&
+      ((this.entryInputName = ""), (this.__OwnBox__ = false));
 
     if (!this.__writeBoxNameDom__) {
-      if (!this.entryInputNa)
+      if (!this.entryInputName)
         throw new Error("entryInputNa或者writeBoxName字段是否为空");
-      let domEntryInp = document.querySelector(this.entryInputNa);
+      let domEntryInp = document.querySelector(this.entryInputName);
       if (domEntryInp.tagName == "INPUT" || domEntryInp.tagName == "TEXTAREA") {
         domEntryInp = null;
         throw new Error("entryInputNa必须是一个盒子，不能是input或者textarea");
@@ -275,7 +275,7 @@ class Keyboard extends Jquery {
     div.className = "keyboardInp";
     divBox.className = "keyboardInpBox";
     let frag = document.createDocumentFragment();
-    for (let i = 0; i < this.inputLen; i++) {
+    for (let i = 0; i < this.inputNumber; i++) {
       let span = document.createElement("span"),
         num = i;
       span.className = "keyboard__item";
@@ -287,7 +287,7 @@ class Keyboard extends Jquery {
       } else {
         span.setAttribute("data-index", num);
       }
-      if (i == this.inputLen - 1) {
+      if (i == this.inputNumber - 1) {
         span.innerHTML = "<font></font>";
         span.className = "keyboard__especial keyboard__item";
       }
@@ -295,7 +295,7 @@ class Keyboard extends Jquery {
     }
     div.appendChild(frag);
     divBox.appendChild(div);
-    document.querySelector(this.entryInputNa).appendChild(divBox);
+    document.querySelector(this.entryInputName).appendChild(divBox);
     this._keyboardInpEvent();
   }
 
@@ -312,7 +312,7 @@ class Keyboard extends Jquery {
           function (e) {
             let txt = this.innerText,
               inputSpanAll = document.querySelectorAll(
-                _this.entryInputNa + " span[data-index]"
+                _this.entryInputName + " span[data-index]"
               );
             if (!inputSpanAll) throw new Error("entryInputNa不能为空");
             if (_this.hasClass(this, "keyboard__switch")) {
@@ -327,7 +327,7 @@ class Keyboard extends Jquery {
               //键盘输入操作
               _this._externalOrBuilt(txt, inputSpanAll);
             }
-            _this.keyboardFn && _this.keyboardFn();
+            _this.onChange?.(txt);
             _this._eventBubbling(e);
           },
           false
@@ -342,7 +342,7 @@ class Keyboard extends Jquery {
     if (!this.__writeBoxNameDom__) {
       this._builtInEvalua(inputSpanAll, txt, isDisbaledMoveFocus);
     } else {
-      this.index < this.inputLen - this.inpRedundantLen && this.index++;
+      this.index < this.inputNumber - this.inpRedundantLen && this.index++;
       this.index >= 1 && (this.status = true) && this._switchEnOrCh();
       (this.__writeBoxIsInput__ &&
         ((this.__writeBoxNameDom__.value = this.getVehicleValue()),
@@ -367,7 +367,7 @@ class Keyboard extends Jquery {
       return false;
     }
     if (isDisbaledMoveFocus) {
-      this.index < this.inputLen - this.inpRedundantLen && this.index++;
+      this.index < this.inputNumber - this.inpRedundantLen && this.index++;
       this.addClass(inputSpanAll[this.index], "keyboard__active");
       this.index >= 1 && ((this.status = true), this._switchEnOrCh());
     }
@@ -394,7 +394,7 @@ class Keyboard extends Jquery {
     let _this = this,
       array = [],
       allEle = document.querySelectorAll(
-        this.entryInputNa + " span[data-index]"
+        this.entryInputName + " span[data-index]"
       );
     (!allEle.length && array.push(allEle)) || (array = [...allEle]);
     for (let i = 0; i < array.length; i++) {
@@ -403,7 +403,7 @@ class Keyboard extends Jquery {
           "click",
           function (e) {
             let inputSpanAll = document.querySelectorAll(
-              _this.entryInputNa + " span[data-index]"
+              _this.entryInputName + " span[data-index]"
             );
             let especialExis = _this.hasClass(
               document.querySelector(".keyboardInp span:last-child"),
@@ -437,11 +437,11 @@ class Keyboard extends Jquery {
   //输入框外置键盘点击事件
   _keyboardExternalEvent() {
     let inputSpanAll = document.querySelectorAll(
-      this.entryInputNa + " span[data-index]"
+      this.entryInputName + " span[data-index]"
     );
     if (!inputSpanAll) throw new Error("entryInputNa是否为空");
     this.externalKeyboard &&
-      this.entryInputNa &&
+      this.entryInputName &&
       Array.from(inputSpanAll).forEach((item) => {
         item.setAttribute("contenteditable", true);
         item.addEventListener("keydown", (e) => {
@@ -468,7 +468,7 @@ class Keyboard extends Jquery {
 
   //删除writeBoxName的操作
   _delWriteBoxName() {
-    this.backpaceFn?.();
+    this.onBackpace?.();
     (this.index > 0 && !this.saveValue[this.index] && this.index--) ||
       (this.index == 0 && ((this.status = false), this._switchEnOrCh()));
     this.saveValue[this.index] = "";
@@ -538,7 +538,7 @@ class Keyboard extends Jquery {
     this.__keyboardDom__.onclick = (e) => this._eventBubbling(e);
     this.__writeBoxNameDom__ =
       (this.writeBoxName && document.querySelector(this.writeBoxName)) || null;
-    this.initComplateFn?.();
+    this.onComplate?.();
   }
 
   //拼接html
@@ -585,9 +585,12 @@ class Keyboard extends Jquery {
 
   //获取页面传的车牌字符串
   _getVehicleSplit() {
-    if (!!this.pageVehicleSplit && typeof this.pageVehicleSplit == "string") {
-      this.pageVehicleSplit = this.pageVehicleSplit.toLocaleUpperCase();
-      this.saveValue = [...this.pageVehicleSplit.split("")];
+    if (
+      !!this.defaultVehicleValue &&
+      typeof this.defaultVehicleValue == "string"
+    ) {
+      this.defaultVehicleValue = this.defaultVehicleValue.toLocaleUpperCase();
+      this.saveValue = [...this.defaultVehicleValue.split("")];
       this.status = true;
       this._switchEnOrCh();
       this._assignmentInput();
@@ -599,7 +602,7 @@ class Keyboard extends Jquery {
     let _this = this;
     if (this.__OwnBox__) {
       let inputSpanAll = document.querySelectorAll(
-        _this.entryInputNa + " span[data-index]"
+        _this.entryInputName + " span[data-index]"
       );
       Array.from(inputSpanAll).forEach(function (item) {
         let dataIndex = item.getAttribute("data-index");
@@ -615,8 +618,8 @@ class Keyboard extends Jquery {
     } else {
       this.index = this.saveValue.length;
       this.__writeBoxNameDom__.focus();
-      this.__writeBoxNameDom__.innerHTML = this.pageVehicleSplit;
-      this.__writeBoxNameDom__.value = this.pageVehicleSplit;
+      this.__writeBoxNameDom__.innerHTML = this.defaultVehicleValue;
+      this.__writeBoxNameDom__.value = this.defaultVehicleValue;
     }
   }
 
@@ -672,7 +675,7 @@ class Keyboard extends Jquery {
   initValue() {
     if (this.__OwnBox__) {
       let inputSpanAll = document.querySelectorAll(
-        this.entryInputNa + " span[data-index]"
+        this.entryInputName + " span[data-index]"
       );
       this.saveValue = [];
       this.index = 0;
@@ -703,12 +706,12 @@ class Keyboard extends Jquery {
   }
 
   //键盘显示
-  keyboardShow() {
+  show() {
     this.hasClass(this.__keyboardDom__, "keyboard__hide") &&
       this.removeClass(this.__keyboardDom__, "keyboard__hide");
   }
   //键盘显示
-  keyboardHide() {
+  hide() {
     !this.hasClass(this.__keyboardDom__, "keyboard__hide") &&
       this.addClass(this.__keyboardDom__, "keyboard__hide");
   }

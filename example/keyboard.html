@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>browser键盘使用</title>
-  <link rel="stylesheet" href="../lib/style/default.css"></link>
+  <link rel="stylesheet" href="https://unpkg.com/vehicle-keyboard-js@1.1.0/lib/style/default.css"></link>
 </head>
 
 <body>
@@ -17,20 +17,20 @@
   <button onclick='show()'>显示</button>
   <button onclick='hide()'>隐藏</button>
   <!-- <script src="./keyboard.js"></script> -->
-  <script src="../lib/Keyboard.min.js"></script>
+  <script src="https://unpkg.com/vehicle-keyboard-js@1.1.0/lib/Keyboard.min.js"></script>
   <script>
     const keyboard = new Keyboard({
       boxName: ".keyboard",
       // writeBoxName: ".inp",
-      entryInputNa: ".inp",
-      pageVehicleSplit: "鄂j401",
+      entryInputName: ".inp",
+      defaultVehicleValue: "鄂j401",
       pushCh: ['中', '国', '加', "油"],
       pushEn: ['1'],
       enabledEn: ['O', 'j', '1'],
       enabledCh: ['油'],
       externalKeyboard: true,//是否启用自己的键盘
-      backpaceFn: function () {
-        console.log("backpaceFn=>删除事件的回调")
+      onBackpace: function () {
+        console.log("onBackpace=>删除事件的回调")
         console.log(keyboard.getVehicleValue());
       }
     });
@@ -40,11 +40,11 @@
       keyboard.initValue();
     }
     function hide() {
-      keyboard.keyboardHide();
+      keyboard.hide();
     }
 
     function show(event) {
-      keyboard.keyboardShow();
+      keyboard.show();
       // window.event ? window.event.cancelBubble = true : e.stopPropagation();
     }
   </script>
