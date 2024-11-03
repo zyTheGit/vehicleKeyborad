@@ -21,15 +21,18 @@
 # 安装
 
 ```shell
-npm install vehicle-keyboard-js;
+npm install vehicle-keyboard-js
 ```
 
 或者通过`cdn`引入
 
-```html
-<link rel="stylesheet" href="https://unpkg.com/vehicle-keyboard-js@1.0.15/lib/style/default.css"></link>
-
-<script src="https://unpkg.com/vehicle-keyboard-js@1.0.15/lib/Keyboard.min.js"></script>
+1. 引入`js`
+```js
+<script src="https://unpkg.com/vehicle-keyboard-js@1.0.16/lib/Keyboard.min.js"></script>
+```
+2. 引入样式
+```css
+<link rel="stylesheet" href="https://unpkg.com/vehicle-keyboard-js@1.0.16/lib/style/default.css"></link>
 ```
 
 ## Vue 中使用
@@ -117,7 +120,7 @@ keyboard.init();
 - `pageVehicleSplit`: "页面中传来的部分车牌，`string`-非必填项；
 - `enabledCh`: "需要禁用的中文键-`string|number[]`-非必填项"；
 - `enabledEn`: "需要禁用的英文键-`string|number[]`-非必填项"；
-- `externalKeyboard`:是否启用内置键盘-`Boolean`-非必填项，`entryInputNa`存在时才起作用,(开启原生自带键盘输入的方式)；
+- `externalKeyboard`:是否启用内置键盘-`Boolean`-非必填项，默认`false`不开启，`entryInputNa`存在时才起作用,(开启原生自带键盘输入的方式)；
 
 # 返回的事件和参数
 
@@ -136,6 +139,6 @@ keyboard.init();
 - **1.0.14**
   - 包由`zy-vehicle-keyboard`更名为`vehicle-keyboard-js`
   - 修复删除事件多返回一位
-- **1.0.15**
+- **1.0.16**
   - **将 css 抽离到单独的文件中，减少`js`的体积，用户可自定义键盘样式，须用户单独引入 css 样式**
   - 修复切换到第二个输入框，键盘没有自动切换到数字键盘
