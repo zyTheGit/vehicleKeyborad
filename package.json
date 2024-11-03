@@ -1,13 +1,12 @@
 {
   "name": "vehicle-keyboard-js",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "parking vehicle keyboard",
-  "main": "./lib/index.js",
+  "main": "./lib/Keyboard.js",
   "files": [
     "/lib"
   ],
   "scripts": {
-    "dev": "webpack --mode development",
     "build": "rollup --config --bundleConfigAsCjs"
   },
   "repository": {
@@ -29,11 +28,21 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-terser": "^0.4.0",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
     "rollup": "^3.18.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-styles": "^4.0.0"
   },
   "engines": {
     "node": ">=16.11.0"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "not ie < 8",
+    "last 2 versions",
+    "> 1%",
+    "iOS 7",
+    "last 3 iOS versions"
+  ]
 }
