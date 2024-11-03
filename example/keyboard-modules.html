@@ -6,18 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>es键盘使用</title>
+  <link rel="stylesheet" href="../lib/style/default.css"></link>
+  <!-- <link rel="stylesheet" href="../src/keyboard.css"> -->
 </head>
 
 <body>
   <!-- <input class="inp" > -->
   <div class='inp'></div>
   <div class="keyboard"></div>
-  <button onclick='reset()'>重置</button>
-  <button onclick='show()'>显示</button>
-  <button onclick='hide()'>隐藏</button>
+  <button class='reset'>重置</button>
+  <button class='show'>显示</button>
+  <button class='hide'>隐藏</button>
   <script type="module">
-    import Keyboard from '../lib/index.js'
-
+    import Keyboard from '../lib/Keyboard.js'
+    // import Keyboard from '../src/Keyboard.js'
+    const buttonEls = document.querySelectorAll('button');
     const keyboard = new Keyboard({
       boxName: ".keyboard",
       // writeBoxName: ".inp",
@@ -33,19 +36,25 @@
         console.log(keyboard.getVehicleValue());
       }
     });
+
     keyboard.init();
 
-    function reset() {
-      keyboard.initValue();
-    }
-    function hide() {
-      keyboard.keyboardHide();
-    }
-
-    function show(event) {
-      keyboard.keyboardShow();
-      // window.event ? window.event.cancelBubble = true : e.stopPropagation();
-    }
+    Array.from(buttonEls).forEach(el => {
+      el.addEventListener('click', (event) => {
+        switch (el.className) {
+          case 'reset':
+            keyboard.initValue();
+            break;
+          case 'show':
+            keyboard.keyboardShow();
+            // window.event ? window.event.cancelBubble = true : e.stopPropagation();
+            break;
+          case 'hide':
+            keyboard.keyboardHide();
+            break;
+        }
+      })
+    })
   </script>
 </body>
 
